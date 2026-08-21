@@ -640,6 +640,11 @@
     flex: 1;
   }
 
+  #searchDemoResults{
+    overflow: hidden;
+    contain: layout style;
+  }
+
   /* ---------- Hero desktop ---------- */
   @media (min-width: 900px){
     .hero-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: stretch; }
@@ -2293,6 +2298,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       });
       setTimeout(() => {
         resultsEl.innerHTML = receitas.map(montarCardHTML).join('');
+        // Trava a altura do container no tamanho do conteúdo atual, antes de
+        // limpar o innerHTML no próximo ciclo — evita colapso durante a
+        // transição de apagar/digitar.
+        resultsEl.style.minHeight = resultsEl.scrollHeight + 'px';
         requestAnimationFrame(() => {
           resultsEl.querySelectorAll('.demo-card').forEach((card, i) => {
             setTimeout(() => card.classList.add('is-visible'), i * 90);
