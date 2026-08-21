@@ -10,11 +10,82 @@
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#F8F5F0">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
 <style>
+  /* ============================================
+     FONTES — self-hosted (./fonts/), substituindo o Google Fonts
+     ============================================ */
+  @font-face{
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('./fonts/cormorant-garamond-300.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/cormorant-garamond-400.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('./fonts/cormorant-garamond-600.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('./fonts/jost-300.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/jost-400.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('./fonts/jost-500.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('./fonts/jost-600.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'DM Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('./fonts/dm-mono-400.woff2') format('woff2');
+  }
+
+  @font-face{
+    font-family: 'DM Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('./fonts/dm-mono-500.woff2') format('woff2');
+  }
+
   /* ============================================
      DESIGN SYSTEM — Biblioteca Proteica da Lívia
      ============================================ */
@@ -328,6 +399,7 @@
     overflow: hidden;
     position: relative;
     transition: none;
+    contain: layout style;
   }
 
   .demo-card{
@@ -913,7 +985,13 @@
     scrollbar-width: none;
   }
   .gallery-scroll::-webkit-scrollbar{ display: none; }
-  .gallery-scroll .demo-card{ flex: 0 0 170px; scroll-snap-align: start; }
+  /* Cards animam opacity/transform (fade + slide-in) ao entrar na tela — will-change
+     avisa o navegador com antecedência e position garante um contexto de posicionamento
+     estável para o transform, evitando jank/layout shift no mobile. */
+  .gallery-scroll .demo-card{ flex: 0 0 170px; scroll-snap-align: start; position: relative; will-change: transform; }
+  /* Aspect-ratio real de cada foto (via custom properties definidas inline por card),
+     reservando o espaço exato antes da imagem carregar e eliminando o CLS. */
+  .gallery-scroll .demo-card-img{ aspect-ratio: var(--img-w, 4) / var(--img-h, 3); }
 
   /* ============================================
      Bloco Emocional
@@ -2057,6 +2135,46 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   // ============================================
   // Helpers compartilhados — cards de receita
   // ============================================
+
+  // Dimensões reais (largura x altura, em px) de cada foto de receita.
+  // Usadas apenas pela Galeria de Receitas (opts.dimensoes) para preencher
+  // width/height/aspect-ratio reais do <img> e evitar layout shift (CLS).
+  const DIMENSOES_IMAGEM_GALERIA = {
+    "RECEITAS/CAFE-DA-MANHA/CREPIOCA-DE-BANOFFEE/CREPIOCA-DE-BANOFFEE.webp": [800, 1000],
+    "RECEITAS/CAFE-DA-MANHA/PANQUECA-DE-FRANGO-COM-MOLHO-CREMOSO/PANQUECA-DE-FRANGO-COM-MOLHO-CREMOSO.webp": [800, 1067],
+    "RECEITAS/CAFE-DA-MANHA/PAO-PROTEICO-DE-FRANGO/PAO-PROTEICO-DE-FRANGO.webp": [800, 1000],
+    "RECEITAS/CAFE-DA-MANHA/PAO-PROTEICO-DE-FRANGO-TEMPERADO/PAO-PROTEICO-DE-FRANGO-TEMPERADO.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/CREPE-PROTEICO-DE-FRANGO-E-QUEIJO/CREPE-PROTEICO-DE-FRANGO-E-QUEIJO.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/MUFFIN-PROTEICO-DE-FRANGO-E-BROCOLIS/MUFFIN-PROTEICO-DE-FRANGO-E-BROCOLIS.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/PALITINHOS-PROTEICOS-DE-FRANGO-COM-QUEIJO/PALITINHOS-PROTEICOS-DE-FRANGO-COM-QUEIJO.webp": [800, 1383],
+    "RECEITAS/LANCHE-E-SOBREMESA/WRAP-PROTEICO-DE-COTTAGE-E-OVOS/WRAP-PROTEICO-DE-COTTAGE-E-OVOS.webp": [800, 1067],
+    "RECEITAS/LANCHE-E-SOBREMESA/BOLINHO-PROTEICO-DE-BATATA-DOCE-E-FRANGO/BOLINHO-PROTEICO-DE-BATATA-DOCE-E-FRANGO.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/PAO-DE-QUEIJO-PROTEICO/PAO-DE-QUEIJO-PROTEICO.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/PANQUECA-BOMBOM-DE-MORANGO/PANQUECA-BOMBOM-DE-MORANGO.webp": [800, 1000],
+    "RECEITAS/ALMOCO-E-JANTA/ENROLADO-DE-FRANGO-RECHEADO/ENROLADO-DE-FRANGO-RECHEADO.webp": [800, 1000],
+    "RECEITAS/MARMITAS/ESCONDIDINHO-DE-PATINHO-COM-MOLHO-BRANCO/ESCONDIDINHO-DE-PATINHO-COM-MOLHO-BRANCO.webp": [800, 1067],
+    "RECEITAS/ALMOCO-E-JANTA/KEBAB-DE-FRANGO/KEBAB-DE-FRANGO.webp": [800, 1000],
+    "RECEITAS/ALMOCO-E-JANTA/ROCAMBOLE-DE-CENOURA-COM-FRANGO/ROCAMBOLE-DE-CENOURA-COM-FRANGO.webp": [800, 1087],
+    "RECEITAS/ALMOCO-E-JANTA/OMELETE-DE-FRANGO-COM-CENOURA-E-ESPINAFRE/OMELETE-DE-FRANGO-COM-CENOURA-E-ESPINAFRE.webp": [800, 1155],
+    "RECEITAS/ALMOCO-E-JANTA/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO.webp": [800, 1087],
+    "RECEITAS/ALMOCO-E-JANTA/PIZZA-QUADRADA-PROTEICA-DE-FRANGO/PIZZA-QUADRADA-PROTEICA-DE-FRANGO.webp": [800, 1120],
+    "RECEITAS/ALMOCO-E-JANTA/SALADA-PROTEICA-DE-ATUM-COM-MOLHO-CREMOSO/SALADA-PROTEICA-DE-ATUM-COM-MOLHO-CREMOSO.webp": [800, 1000],
+    "RECEITAS/ALMOCO-E-JANTA/SALADA-PROTEICA-DE-FRANGO-COM-MOLHO-DE-IOGURTE-E-MOSTARDA/SALADA-PROTEICA-DE-FRANGO-COM-MOLHO-DE-IOGURTE-E-MOSTARDA.webp": [800, 1067],
+    "RECEITAS/ALMOCO-E-JANTA/TABLETES-DE-TILAPIA-COM-LEMON-PEPPER-E-BATATA/TABLETES-DE-TILAPIA-COM-LEMON-PEPPER-E-BATATA.webp": [800, 1421],
+    "RECEITAS/ALMOCO-E-JANTA/TORTA-DE-ATUM-SAUDAVEL/TORTA-DE-ATUM-SAUDAVEL.webp": [800, 1000],
+    "RECEITAS/ALMOCO-E-JANTA/TORTA-DE-FRANGO-E-TAPIOCA/TORTA-DE-FRANGO-E-TAPIOCA.webp": [800, 1000],
+    "RECEITAS/ALMOCO-E-JANTA/TORTA-DE-TAPIOCA-PROTEICA/TORTA-DE-TAPIOCA-PROTEICA.webp": [800, 1067],
+    "RECEITAS/ALMOCO-E-JANTA/TORTA-FINA-PROTEICA-DE-FRANGO/TORTA-FINA-PROTEICA-DE-FRANGO.webp": [800, 1421],
+    "RECEITAS/MARMITAS/ESTROGONOFE-DE-FRANGO-COM-BATATAS-E-ABOBRINHA/ESTROGONOFE-DE-FRANGO-COM-BATATAS-E-ABOBRINHA.webp": [800, 1067],
+    "RECEITAS/LANCHE-E-SOBREMESA/BOLO-DE-BANANA-COM-AVEIA-E-DOCE-DE-LEITE/BOLO-DE-BANANA-COM-AVEIA-E-DOCE-DE-LEITE.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/BOLO-PROTEICO-DE-CHOCOLATE/BOLO-PROTEICO-DE-CHOCOLATE.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp": [800, 1067],
+    "RECEITAS/LANCHE-E-SOBREMESA/BROWNIE-PROTEICO/BROWNIE-PROTEICO.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/MOUSSE-DE-MARACUJA/MOUSSE-DE-MARACUJA.webp": [800, 1000],
+    "RECEITAS/LANCHE-E-SOBREMESA/PUDIM-FIT/PUDIM-FIT.webp": [800, 1067],
+    "RECEITAS/LANCHE-E-SOBREMESA/PUDIM-FIT-COM-DOCE-DE-LEITE/PUDIM-FIT-COM-DOCE-DE-LEITE.webp": [800, 1061]
+  };
+
   function criarCardReceita(receita, opts = {}) {
     const badges = [
       `<span class="badge">${receita.tempo} min</span>`,
@@ -2064,10 +2182,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     ];
     if (opts.calorias) badges.push(`<span class="badge">${receita.macros.calorias} kcal</span>`);
     const nota = opts.notaExtra ? `<p class="demo-card-nota">${opts.notaExtra}</p>` : '';
+    // Somente a Galeria de Receitas (opts.dimensoes) recebe width/height/aspect-ratio
+    // reais no <img> — as demais seções que reaproveitam este template continuam iguais.
+    const dim = opts.dimensoes ? DIMENSOES_IMAGEM_GALERIA[receita.imagem] : null;
+    const imgAtributos = dim ? ` width="${dim[0]}" height="${dim[1]}"` : '';
+    const imgWrapStyle = dim ? ` style="--img-w:${dim[0]};--img-h:${dim[1]}"` : '';
     return `
       <article class="demo-card recipe-card" data-id="${receita.id}" tabindex="0" role="button" aria-label="Ver ${receita.nome}">
-        <div class="demo-card-img">
-          <img src="${receita.imagem}" alt="" loading="lazy" onerror="this.remove()">
+        <div class="demo-card-img"${imgWrapStyle}>
+          <img src="${receita.imagem}" alt=""${imgAtributos} loading="lazy" onerror="this.remove()">
         </div>
         <div class="demo-card-body">
           <h3 class="demo-card-nome">${receita.nome}</h3>
@@ -2296,6 +2419,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // CRÍTICO: nunca colapsar altura — reservar espaço permanente
     resultsEl.style.minHeight = resultsEl.offsetHeight + 'px';
 
+    // Os cards são renderizados uma única vez e reaproveitados em todos os
+    // ciclos do loop — evita recriar o DOM (innerHTML) a cada volta, que
+    // causava layout shift. Os ciclos seguintes apenas alternam a classe
+    // is-visible nos cards já existentes, com a transição suave que a
+    // classe .demo-card já define (opacity/transform).
+    let cardsRenderizados = false;
+
     function chipPara(valor) {
       return chipsWrap.querySelector(`[data-demo-ingrediente="${valor}"]`);
     }
@@ -2307,12 +2437,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     async function fadeOutCards() {
       const cards = resultsEl.querySelectorAll('.demo-card, .recipe-card');
-      cards.forEach(c => {
-        c.style.transition = 'opacity 250ms ease, transform 250ms ease';
-        c.style.opacity = '0';
-        c.style.transform = 'translateY(8px)';
-      });
-      await espera(260);
+      cards.forEach(c => c.classList.remove('is-visible'));
+      await espera(360); // aguarda a transição opacity/transform (.35s) definida em .demo-card
     }
 
     function documentoVisivel() {
@@ -2338,15 +2464,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       await espera(150);
       btn.classList.remove('is-clicking');
 
-      // Fase 5: inserir novos cards DENTRO do espaço reservado (sem mudar altura do container)
+      // Fase 5: mostrar os cards dentro do espaço reservado (sem recriar o DOM)
       await espera(350);
-      const resultados = filtrarPorIngredientes(ORDEM_DEMO).slice(0, 3);
-      resultsEl.innerHTML = resultados.map(r => criarCardReceita(r)).join('');
+      if (!cardsRenderizados) {
+        const resultados = filtrarPorIngredientes(ORDEM_DEMO).slice(0, 3);
+        resultsEl.innerHTML = resultados.map(r => criarCardReceita(r)).join('');
+        cardsRenderizados = true;
 
-      // Recalcular e travar a min-height com o novo conteúdo
-      resultsEl.style.minHeight = '';
-      void resultsEl.offsetHeight; // force reflow
-      resultsEl.style.minHeight = resultsEl.offsetHeight + 'px';
+        // Recalcular e travar a min-height com o conteúdo (só na primeira renderização)
+        resultsEl.style.minHeight = '';
+        void resultsEl.offsetHeight; // force reflow
+        resultsEl.style.minHeight = resultsEl.offsetHeight + 'px';
+      }
 
       marcarCardsVisiveis(resultsEl);
 
@@ -2551,7 +2680,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     function render(categoria) {
       const receitas = RECEITAS.filter(r => r.categoria === categoria);
-      scrollEl.innerHTML = receitas.map(r => criarCardReceita(r, { calorias: true })).join('');
+      scrollEl.innerHTML = receitas.map(r => criarCardReceita(r, { calorias: true, dimensoes: true })).join('');
       scrollEl.scrollLeft = 0;
       marcarCardsVisiveis(scrollEl);
     }
@@ -2673,31 +2802,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   })();
 </script>
 
-<!-- Meta Pixel Code -->
+<!-- Meta Pixel + Google Tag Manager — carregados só após o load da página, para não bloquear o LCP -->
 <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1017904621080700');
-fbq('track', 'PageView');
+window.addEventListener('load', function(){
+
+  // Meta Pixel Code
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1017904621080700');
+  fbq('track', 'PageView');
+  // End Meta Pixel Code
+
+  // Google Tag Manager
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5RKB279X');
+  // End Google Tag Manager
+
+});
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1017904621080700&ev=PageView&noscript=1"
 /></noscript>
-<!-- End Meta Pixel Code -->
-
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5RKB279X');</script>
-<!-- End Google Tag Manager -->
 
 </body>
 </html>
