@@ -2475,8 +2475,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
         // Recalcular e travar a min-height com o conteúdo (só na primeira renderização)
         resultsEl.style.minHeight = '';
-        void resultsEl.offsetHeight; // force reflow
-        resultsEl.style.minHeight = resultsEl.offsetHeight + 'px';
       }
 
       marcarCardsVisiveis(resultsEl);
