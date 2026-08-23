@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Condição Especial de Retorno — Biblioteca Proteica da Lívia</title>
+
+  <link rel="preload" href="/fonts/jost-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/cormorant-garamond-600.woff2" as="font" type="font/woff2" crossorigin>
+
+  <style>
+    /* ── FONTS ── */
+    @font-face { font-family:'Jost'; src:url('/fonts/jost-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Jost'; src:url('/fonts/jost-700.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Cormorant Garamond'; src:url('/fonts/cormorant-garamond-600.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:swap; }
+    @font-face { font-family:'DM Mono'; src:url('/fonts/dm-mono-400.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:swap; }
+
+    /* ── RESET & TOKENS ── */
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    :root {
+      --cor-primaria:   #C4A882;
+      --cor-secundaria: #3D5235;
+      --cor-destaque:   #B85C38;
+      --cor-texto:      #1A1814;
+      --cor-fundo:      #F8F5F0;
+      --cor-superficie: #EFEBE4;
+      --cor-escuro:     #111009;
+      --f-display: 'Cormorant Garamond', Georgia, serif;
+      --f-body:    'Jost', system-ui, sans-serif;
+      --f-mono:    'DM Mono', monospace;
+      --max-w: 640px;
+      --pad-h: 1.25rem;
+    }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:var(--f-body);
+      background:var(--cor-fundo);
+      color:var(--cor-texto);
+      line-height:1.55;
+      -webkit-font-smoothing:antialiased;
+    }
+    .container {
+      width:100%;
+      max-width:var(--max-w);
+      margin:0 auto;
+      padding:0 var(--pad-h);
+    }
+    img { display:block; max-width:100%; height:auto; }
+
+    /* ── EYEBROW ── */
+    .eyebrow {
+      font-family:var(--f-body);
+      font-size:.7rem;
+      font-weight:700;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:var(--cor-primaria);
+    }
+
+    /* ── BOTÃO CTA ── */
+    .btn-cta {
+      display:block;
+      width:100%;
+      background:var(--cor-destaque);
+      color:#fff;
+      font-family:var(--f-body);
+      font-weight:700;
+      font-size:1rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      text-align:center;
+      text-decoration:none;
+      padding:1.05rem 1.5rem;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      transition:background .18s, transform .12s;
+      -webkit-tap-highlight-color:transparent;
+      line-height:1.3;
+    }
+    .btn-cta:active { transform:scale(.98); }
+    @media(hover:hover){ .btn-cta:hover { background:#a34e2e; } }
+
+    /* ── PREÇO ── */
+    .preco-de {
+      font-size:.85rem;
+      text-decoration:line-through;
+      opacity:.45;
+      font-family:var(--f-body);
+    }
+    .preco-por {
+      font-family:var(--f-display);
+      font-weight:600;
+      color:var(--cor-destaque);
+      line-height:1;
+    }
+    .preco-por .rs { font-size:48%; letter-spacing:.02em; vertical-align:baseline; position:relative; top:-.15em; }
+
+    /* ── TRUST ROW ── */
+    .trust-row {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:.35rem .9rem;
+      font-size:.78rem;
+      opacity:.6;
+      letter-spacing:.02em;
+    }
+    .trust-row span { white-space:nowrap; }
+
+    /* ── DIVISOR ── */
+    .divisor {
+      width:2.5rem;
+      height:1px;
+      background:var(--cor-primaria);
+      margin:0 auto;
+      opacity:.5;
+    }
+
+    /* ════════════════════════════
+       DOBRA 1 — HERO
+    ════════════════════════════ */
+    #hero {
+      background:var(--cor-fundo);
+      padding:4rem var(--pad-h) 3rem;
+      display:flex;
+      align-items:flex-start;
+    }
+    #hero .container {
+      display:flex;
+      flex-direction:column;
+      gap:1.5rem;
+    }
+    #hero h1 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(2rem, 7vw, 2.75rem);
+      line-height:1.15;
+      color:var(--cor-texto);
+    }
+    #hero h1 em {
+      font-style:normal;
+      color:var(--cor-destaque);
+    }
+    .hero-sub {
+      font-size:.95rem;
+      line-height:1.65;
+      color:var(--cor-texto);
+      opacity:.8;
+      max-width:480px;
+    }
+    .hero-preco-bloco {
+      display:flex;
+      flex-direction:column;
+      gap:.2rem;
+    }
+    .hero-preco-bloco .preco-por {
+      font-size:clamp(3.25rem, 15vw, 4.5rem);
+    }
+    .hero-contexto {
+      font-size:.8rem;
+      opacity:.5;
+      font-family:var(--f-body);
+      margin-top:.1rem;
+    }
+
+    /* ════════════════════════════
+       DOBRA 2 — RETORNO
+    ════════════════════════════ */
+    #retorno {
+      background:var(--cor-escuro);
+      padding:3rem var(--pad-h);
+      color:#fff;
+    }
+    #retorno .container {
+      display:flex;
+      flex-direction:column;
+      gap:1.5rem;
+      max-width:520px;
+    }
+    #retorno h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.6rem, 5.5vw, 2.1rem);
+      line-height:1.2;
+      color:#fff;
+    }
+    .retorno-paras {
+      display:flex;
+      flex-direction:column;
+      gap:.85rem;
+    }
+    .retorno-paras p {
+      font-size:.95rem;
+      line-height:1.7;
+      color:rgba(255,255,255,.7);
+    }
+    .retorno-virada {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.25rem, 4.5vw, 1.5rem);
+      color:var(--cor-primaria);
+      line-height:1.25;
+    }
+
+    /* ════════════════════════════
+       DOBRA 3 — LEMBRETE VISUAL
+    ════════════════════════════ */
+    #lembrete {
+      background:var(--cor-superficie);
+      padding:3rem var(--pad-h);
+    }
+    #lembrete .container {
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    #lembrete h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.6rem, 5.5vw, 2.1rem);
+      line-height:1.2;
+    }
+    .lembrete-sub {
+      font-size:.95rem;
+      line-height:1.65;
+      opacity:.75;
+      margin-top:-.5rem;
+    }
+    .features-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:.75rem;
+    }
+    .feature-item {
+      display:flex;
+      align-items:flex-start;
+      gap:.6rem;
+      font-size:.88rem;
+      line-height:1.4;
+    }
+    .feature-check {
+      color:var(--cor-secundaria);
+      font-size:1rem;
+      flex-shrink:0;
+      margin-top:.05em;
+    }
+    .lembrete-footer {
+      display:flex;
+      flex-direction:column;
+      gap:.4rem;
+    }
+    .lembrete-footer p {
+      font-size:.82rem;
+      opacity:.5;
+      letter-spacing:.02em;
+    }
+
+    /* ════════════════════════════
+       DOBRA 4 — COMIDA
+    ════════════════════════════ */
+    #comida {
+      background:var(--cor-escuro);
+      padding:3rem var(--pad-h);
+      color:#fff;
+    }
+    #comida .container {
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    #comida h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.5rem, 5vw, 2rem);
+      line-height:1.2;
+      color:#fff;
+    }
+    #comida h2 em {
+      font-style:normal;
+      color:var(--cor-primaria);
+    }
+    .galeria-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:.6rem;
+    }
+    .galeria-grid .item-destaque {
+      grid-column:1 / -1;
+    }
+    .galeria-item {
+      border-radius:8px;
+      overflow:hidden;
+      aspect-ratio:4/3;
+      background:#1a1814;
+    }
+    .galeria-item.item-destaque {
+      aspect-ratio:16/9;
+    }
+    .galeria-item img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .galeria-caption {
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      opacity:.45;
+      text-align:center;
+      margin-top:-.5rem;
+    }
+    .comida-frase {
+      font-size:.95rem;
+      line-height:1.65;
+      color:rgba(255,255,255,.65);
+      text-align:center;
+    }
+    .comida-frase strong {
+      color:#fff;
+      font-weight:700;
+    }
+
+    /* ════════════════════════════
+       DOBRA 5 — PROVA SOCIAL
+    ════════════════════════════ */
+    #prova {
+      background:var(--cor-fundo);
+      padding:3rem var(--pad-h);
+    }
+    #prova .container {
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    #prova h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.5rem, 5vw, 2rem);
+      line-height:1.2;
+    }
+    .prova-grid {
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+    .prova-item {
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow:0 2px 16px rgba(0,0,0,.08);
+    }
+    .prova-item-wa { background:#0e1c0e; }
+    .prova-item img { width:100%; height:auto; display:block; }
+
+    /* ════════════════════════════
+       DOBRA 6 — VALOR
+    ════════════════════════════ */
+    #valor {
+      background:var(--cor-superficie);
+      padding:3rem var(--pad-h);
+    }
+    #valor .container {
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    #valor h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.5rem, 5vw, 2rem);
+      line-height:1.2;
+    }
+    .valor-lista {
+      display:flex;
+      flex-direction:column;
+      gap:.6rem;
+      list-style:none;
+    }
+    .valor-lista li {
+      display:flex;
+      align-items:center;
+      gap:.75rem;
+      font-size:.95rem;
+      padding-bottom:.6rem;
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .valor-lista li:last-child { border-bottom:none; }
+    .valor-lista .vi {
+      color:var(--cor-secundaria);
+      font-size:1rem;
+      flex-shrink:0;
+    }
+    .valor-preco-bloco {
+      display:flex;
+      flex-direction:column;
+      gap:.3rem;
+    }
+    .valor-preco-bloco .preco-por {
+      font-size:clamp(2.75rem, 13vw, 4rem);
+    }
+    .valor-condicoes {
+      display:flex;
+      flex-direction:column;
+      gap:.25rem;
+    }
+    .valor-condicoes p {
+      font-size:.82rem;
+      opacity:.5;
+      letter-spacing:.02em;
+    }
+
+    /* ════════════════════════════
+       DOBRA 7 — GARANTIA
+    ════════════════════════════ */
+    #garantia {
+      background:#2D4A23;
+      padding:3rem var(--pad-h);
+      color:#fff;
+    }
+    #garantia .container {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:1.5rem;
+      text-align:center;
+    }
+    .garantia-icon { font-size:3rem; line-height:1; }
+    #garantia h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.5rem, 5vw, 2rem);
+      color:#fff;
+      line-height:1.2;
+    }
+    .garantia-steps {
+      display:flex;
+      flex-direction:column;
+      gap:.6rem;
+      text-align:left;
+      width:100%;
+      max-width:360px;
+    }
+    .garantia-step {
+      display:flex;
+      align-items:flex-start;
+      gap:.75rem;
+      font-size:.9rem;
+      color:rgba(255,255,255,.8);
+      line-height:1.5;
+    }
+    .garantia-step-n {
+      width:1.5rem;
+      height:1.5rem;
+      border-radius:50%;
+      border:1px solid rgba(196,168,130,.4);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.7rem;
+      font-weight:700;
+      color:var(--cor-primaria);
+      flex-shrink:0;
+      margin-top:.1em;
+    }
+    .garantia-virada {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.25rem, 4.5vw, 1.6rem);
+      color:#fff;
+      line-height:1.2;
+    }
+
+    /* ════════════════════════════
+       DOBRA 8 — FAQ
+    ════════════════════════════ */
+    #faq {
+      background:var(--cor-fundo);
+      padding:3rem var(--pad-h);
+    }
+    #faq .container {
+      display:flex;
+      flex-direction:column;
+      gap:2rem;
+    }
+    #faq h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.4rem, 5vw, 1.8rem);
+      line-height:1.2;
+    }
+    .faq-lista {
+      display:flex;
+      flex-direction:column;
+      gap:0;
+      border-top:1px solid rgba(0,0,0,.08);
+    }
+    .faq-item { border-bottom:1px solid rgba(0,0,0,.08); }
+    .faq-pergunta {
+      width:100%;
+      background:none;
+      border:none;
+      padding:1rem 0;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      cursor:pointer;
+      font-family:var(--f-body);
+      font-weight:700;
+      font-size:.9rem;
+      color:var(--cor-texto);
+      text-align:left;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .faq-icone {
+      width:1.25rem;
+      height:1.25rem;
+      flex-shrink:0;
+      position:relative;
+      transition:transform .25s;
+    }
+    .faq-icone::before,
+    .faq-icone::after {
+      content:'';
+      position:absolute;
+      background:var(--cor-destaque);
+      border-radius:2px;
+    }
+    .faq-icone::before { width:100%; height:1.5px; top:50%; left:0; transform:translateY(-50%); }
+    .faq-icone::after  { width:1.5px; height:100%; left:50%; top:0; transform:translateX(-50%); transition:opacity .25s, transform .25s; }
+    .faq-item.open .faq-icone::after { opacity:0; transform:translateX(-50%) rotate(90deg); }
+    .faq-resposta {
+      font-size:.88rem;
+      line-height:1.65;
+      color:var(--cor-texto);
+      opacity:.7;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .3s ease, padding .3s ease;
+      padding:0 0 0 0;
+    }
+    .faq-item.open .faq-resposta {
+      max-height:200px;
+      padding-bottom:1rem;
+    }
+
+    /* ════════════════════════════
+       DOBRA FINAL — CTA
+    ════════════════════════════ */
+    #cta-final {
+      background:var(--cor-escuro);
+      padding:3.5rem var(--pad-h) 5rem;
+      color:#fff;
+    }
+    #cta-final .container {
+      display:flex;
+      flex-direction:column;
+      gap:1.75rem;
+      text-align:center;
+      align-items:center;
+    }
+    #cta-final h2 {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:clamp(1.6rem, 6vw, 2.25rem);
+      color:#fff;
+      line-height:1.2;
+    }
+    #cta-final h2 em {
+      font-style:normal;
+      color:var(--cor-primaria);
+    }
+    .final-sub {
+      font-size:.9rem;
+      line-height:1.65;
+      color:rgba(255,255,255,.6);
+      max-width:420px;
+    }
+    .final-preco-bloco {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:.15rem;
+    }
+    .final-preco-bloco .preco-de { color:rgba(255,255,255,.35); }
+    .final-preco-bloco .preco-por {
+      font-size:clamp(3rem, 14vw, 4.25rem);
+      color:var(--cor-destaque);
+    }
+    .final-cta-wrap { width:100%; max-width:400px; }
+    #cta-final .trust-row { color:rgba(255,255,255,.4); opacity:1; }
+    .final-assinatura {
+      font-size:.75rem;
+      opacity:.3;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+
+    /* ── STICKY BAR ── */
+    #sticky-bar {
+      position:fixed;
+      bottom:0; left:0; right:0;
+      background:var(--cor-texto);
+      border-top:1px solid rgba(196,168,130,.15);
+      padding:.7rem var(--pad-h);
+      z-index:100;
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap:.75rem;
+    }
+    #sticky-bar.visible { display:flex; }
+    .sticky-info {
+      display:flex;
+      flex-direction:column;
+      gap:.1rem;
+      flex-shrink:0;
+    }
+    .sticky-label {
+      font-size:.58rem;
+      letter-spacing:.1em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.35);
+      font-family:var(--f-body);
+    }
+    .sticky-preco {
+      font-family:var(--f-display);
+      font-weight:600;
+      font-size:1.5rem;
+      color:var(--cor-destaque);
+      line-height:1;
+    }
+    #sticky-bar .btn-cta {
+      font-size:.82rem;
+      padding:.75rem 1rem;
+      flex:1;
+      max-width:220px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- GTM noscript -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RKB279X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 1 — HERO DE RECONHECIMENTO
+  ══════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="container">
+
+      <p class="eyebrow">Condição especial para quem já conheceu a Biblioteca</p>
+
+      <h1>Você já viu tudo<br>o que ela pode fazer.<br><em>Agora ela pode<br>ser sua por R$19,90.</em></h1>
+
+      <p class="hero-sub">Quando você conheceu a Biblioteca Proteica da Lívia, ela custava R$47. Se você gostou, mas acabou deixando para depois — eu preparei uma condição especial para você voltar.</p>
+
+      <div class="hero-preco-bloco">
+        <span class="preco-de">Você conheceu por R$47,00</span>
+        <div class="preco-por"><span class="rs">R$</span>19,90</div>
+        <p class="hero-contexto">Pagamento único · Sem assinatura</p>
+      </div>
+
+      <a href="https://pay.kiwify.com.br/BvlfZuj" class="btn-cta js-checkout-cta">
+        Quero aproveitar por R$19,90 →
+      </a>
+
+      <div class="trust-row">
+        <span>⚡ Acesso imediato</span>
+        <span>🛡️ 7 dias de garantia</span>
+        <span>♾️ Acesso vitalício</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 2 — TALVEZ VOCÊ TENHA DEIXADO PARA DEPOIS
+  ══════════════════════════════════════════ -->
+  <section id="retorno">
+    <div class="container">
+
+      <h2>Talvez você tenha gostado.<br>Só não era a hora.</h2>
+
+      <div class="retorno-paras">
+        <p>Talvez você tenha pensado em voltar depois.</p>
+        <p>Talvez R$47 não tenha feito sentido naquele momento.</p>
+        <p>Ou talvez você simplesmente fechou a página e continuou o dia.</p>
+        <p>Por isso eu não quero te explicar tudo de novo.</p>
+        <p>A Biblioteca continua sendo a mesma.</p>
+      </div>
+
+      <p class="retorno-virada">A condição é que mudou.</p>
+
+      <p style="font-size:.95rem; color:rgba(255,255,255,.7); line-height:1.65;">Hoje, por este acesso de retorno, você leva tudo por R$19,90.</p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 3 — LEMBRETE VISUAL
+  ══════════════════════════════════════════ -->
+  <section id="lembrete">
+    <div class="container">
+
+      <p class="eyebrow">Pequeno lembrete do que está te esperando</p>
+      <h2>Abriu. Procurou. Escolheu.</h2>
+      <p class="lembrete-sub">Você não precisa ficar rolando vídeos, procurando prints ou tentando lembrar onde salvou aquela receita. Na Biblioteca você tem tudo em um só lugar.</p>
+
+      <div class="features-grid">
+        <div class="feature-item"><span class="feature-check">✓</span><span>Mais de 50 receitas proteicas</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Novas receitas mensalmente</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Busca por nome ou ingrediente</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Sugestões de substituição</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Geladeira Inteligente</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Cardápio semanal</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Lista de compras</span></div>
+        <div class="feature-item"><span class="feature-check">✓</span><span>Informações nutricionais</span></div>
+      </div>
+
+      <div class="lembrete-footer">
+        <p>Tudo direto pelo navegador.</p>
+        <p>Sem aplicativo para instalar.</p>
+        <p>Sem mensalidade.</p>
+      </div>
+
+      <a href="https://pay.kiwify.com.br/BvlfZuj" class="btn-cta js-checkout-cta">
+        Quero minha Biblioteca por R$19,90 →
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 4 — COMIDA / DESEJO
+  ══════════════════════════════════════════ -->
+  <section id="comida">
+    <div class="container">
+
+      <h2>E continua existindo<br>uma regra por aqui:<br><em>Se não der vontade de comer,<br>não entra na Biblioteca.</em></h2>
+
+      <div class="galeria-grid">
+        <div class="galeria-item item-destaque">
+          <img src="../RECEITAS/LANCHE-E-SOBREMESA/PANQUECA-BOMBOM-DE-MORANGO/PANQUECA-BOMBOM-DE-MORANGO.webp"
+               alt="Panqueca Bombom de Morango" loading="lazy" decoding="async">
+        </div>
+        <div class="galeria-item">
+          <img src="../RECEITAS/LANCHE-E-SOBREMESA/BROWNIE-PROTEICO/BROWNIE-PROTEICO.webp"
+               alt="Brownie Proteico" loading="lazy" decoding="async">
+        </div>
+        <div class="galeria-item">
+          <img src="../RECEITAS/CAFE-DA-MANHA/CREPIOCA-DE-BANOFFEE/CREPIOCA-DE-BANOFFEE.webp"
+               alt="Crepioca de Banoffee" loading="lazy" decoding="async">
+        </div>
+        <div class="galeria-item">
+          <img src="../RECEITAS/ALMOCO-E-JANTA/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO.webp"
+               alt="Pizza Proteica" loading="lazy" decoding="async">
+        </div>
+        <div class="galeria-item">
+          <img src="../RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp"
+               alt="Brigadeiro Proteico de Café" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <p class="comida-frase"><strong>Proteína é importante.</strong><br>Mas primeiro tem que estar gostoso.</p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 5 — PROVA SOCIAL
+  ══════════════════════════════════════════ -->
+  <section id="prova">
+    <div class="container">
+
+      <p class="eyebrow">Quem já abriu entendeu</p>
+      <h2>Não é só mais um arquivo de receitas perdido no celular.</h2>
+
+      <div class="prova-grid">
+        <div class="prova-item prova-item-wa">
+          <img src="../prova-social/WA1 — Thaís.webp" alt="Depoimento Thaís" loading="lazy" decoding="async">
+        </div>
+        <div class="prova-item prova-item-wa">
+          <img src="../prova-social/WA2 — Rafa.webp" alt="Depoimento Rafa" loading="lazy" decoding="async">
+        </div>
+        <div class="prova-item prova-item-wa">
+          <img src="../prova-social/WA3 — Bruna.webp" alt="Depoimento Bruna" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 6 — VALOR COMPLETO
+  ══════════════════════════════════════════ -->
+  <section id="valor">
+    <div class="container">
+
+      <h2>Tudo isso.<br>Uma vez.<br>Por R$19,90.</h2>
+
+      <ul class="valor-lista">
+        <li><span class="vi">✓</span><span>Mais de 50 receitas proteicas com atualizações mensais</span></li>
+        <li><span class="vi">✓</span><span>Busca por ingrediente</span></li>
+        <li><span class="vi">✓</span><span>Geladeira Inteligente</span></li>
+        <li><span class="vi">✓</span><span>Sugestões de substituição</span></li>
+        <li><span class="vi">✓</span><span>Cardápio semanal</span></li>
+        <li><span class="vi">✓</span><span>Lista de compras</span></li>
+        <li><span class="vi">✓</span><span>Informações nutricionais</span></li>
+        <li><span class="vi">✓</span><span>Acesso vitalício</span></li>
+        <li><span class="vi">✓</span><span>Atualizações futuras incluídas</span></li>
+      </ul>
+
+      <div class="valor-preco-bloco">
+        <span class="preco-de">Você conheceu por R$47,00</span>
+        <div class="preco-por"><span class="rs">R$</span>19,90</div>
+      </div>
+
+      <div class="valor-condicoes">
+        <p>Pagamento único.</p>
+        <p>Sem assinatura.</p>
+        <p>Sem cobrança recorrente.</p>
+      </div>
+
+      <a href="https://pay.kiwify.com.br/BvlfZuj" class="btn-cta js-checkout-cta">
+        Quero aproveitar esta condição →
+      </a>
+
+      <p style="font-size:.75rem; opacity:.4; text-align:center;">Acesso liberado após a confirmação do pagamento.</p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 7 — GARANTIA / RISCO ZERO
+  ══════════════════════════════════════════ -->
+  <section id="garantia">
+    <div class="container">
+
+      <div class="garantia-icon">🛡️</div>
+      <h2>Você pode entrar, testar<br>e decidir depois.</h2>
+
+      <div class="garantia-steps">
+        <div class="garantia-step">
+          <div class="garantia-step-n">1</div>
+          <span>Abra a Biblioteca.</span>
+        </div>
+        <div class="garantia-step">
+          <div class="garantia-step-n">2</div>
+          <span>Veja as receitas. Teste a busca. Explore as ferramentas.</span>
+        </div>
+        <div class="garantia-step">
+          <div class="garantia-step-n">3</div>
+          <span>Se perceber que não faz sentido para você, solicite o reembolso dentro de 7 dias.</span>
+        </div>
+      </div>
+
+      <p class="garantia-virada">Seu risco é praticamente zero.</p>
+
+      <a href="https://pay.kiwify.com.br/BvlfZuj" class="btn-cta js-checkout-cta">
+        Quero testar a Biblioteca por R$19,90 →
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA 8 — FAQ
+  ══════════════════════════════════════════ -->
+  <section id="faq">
+    <div class="container">
+
+      <h2>Antes de você ir...</h2>
+
+      <div class="faq-lista">
+
+        <div class="faq-item">
+          <button class="faq-pergunta" aria-expanded="false">
+            É uma assinatura?
+            <span class="faq-icone" aria-hidden="true"></span>
+          </button>
+          <div class="faq-resposta">Não. Você paga R$19,90 uma única vez e o acesso é seu para sempre.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" aria-expanded="false">
+            Vou pagar alguma coisa depois?
+            <span class="faq-icone" aria-hidden="true"></span>
+          </button>
+          <div class="faq-resposta">Não. Não existe mensalidade ou cobrança recorrente de nenhum tipo.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" aria-expanded="false">
+            Preciso instalar aplicativo?
+            <span class="faq-icone" aria-hidden="true"></span>
+          </button>
+          <div class="faq-resposta">Não. A Biblioteca abre diretamente no navegador do celular, tablet ou computador.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" aria-expanded="false">
+            As atualizações estão incluídas?
+            <span class="faq-icone" aria-hidden="true"></span>
+          </button>
+          <div class="faq-resposta">Sim. Todas as novas receitas adicionadas à Biblioteca fazem parte do seu acesso, sem custo extra.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" aria-expanded="false">
+            Como recebo o acesso?
+            <span class="faq-icone" aria-hidden="true"></span>
+          </button>
+          <div class="faq-resposta">Após a confirmação do pagamento, você recebe as informações de acesso por e-mail.</div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-pergunta" aria-expanded="false">
+            Tenho garantia?
+            <span class="faq-icone" aria-hidden="true"></span>
+          </button>
+          <div class="faq-resposta">Sim. Você tem 7 dias para conhecer a Biblioteca e decidir se ela é para você. Se não gostar, reembolso sem perguntas.</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       DOBRA FINAL — CTA
+  ══════════════════════════════════════════ -->
+  <section id="cta-final">
+    <div class="container">
+
+      <h2>Da primeira vez<br>você conheceu.<br><em>Dessa vez,<br>leve com você.</em></h2>
+
+      <p class="final-sub">Mais de 50 receitas proteicas e uma Biblioteca inteira para abrir sempre que aparecer aquela pergunta: <strong style="color:#fff;">"O que eu vou comer?"</strong></p>
+
+      <div class="final-preco-bloco">
+        <span class="preco-de">Você conheceu por R$47,00</span>
+        <div class="preco-por"><span class="rs">R$</span>19,90</div>
+      </div>
+
+      <div class="final-cta-wrap">
+        <a href="https://pay.kiwify.com.br/BvlfZuj" class="btn-cta js-checkout-cta">
+          Quero minha Biblioteca por R$19,90 →
+        </a>
+      </div>
+
+      <div class="trust-row">
+        <span>⚡ Acesso imediato</span>
+        <span>🛡️ Garantia de 7 dias</span>
+        <span>🚫 Sem assinatura</span>
+      </div>
+
+      <p class="final-assinatura">Lívia Valença · Biblioteca Proteica</p>
+
+    </div>
+  </section>
+
+  <!-- STICKY BAR -->
+  <div id="sticky-bar" role="complementary" aria-label="Oferta de retorno">
+    <div class="sticky-info">
+      <span class="sticky-label">Condição especial</span>
+      <span class="sticky-preco">R$19,90</span>
+    </div>
+    <a href="https://pay.kiwify.com.br/BvlfZuj" class="btn-cta js-checkout-cta">
+      Garantir agora →
+    </a>
+  </div>
+
+  <!-- ── SCRIPTS ── -->
+  <script>
+    window.addEventListener('load', function () {
+
+      /* Meta Pixel */
+      !function(f,b,e,v,n,t,s){
+        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)
+      }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init','1017904621080700');
+      fbq('track','PageView');
+
+      /* GTM */
+      (function(w,d,s,l,i){
+        w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+        var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+        j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+        f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5RKB279X');
+
+      /* InitiateCheckout */
+      document.querySelectorAll('.js-checkout-cta').forEach(function(el){
+        el.addEventListener('click', function(){
+          if(typeof fbq==='function') fbq('track','InitiateCheckout');
+        });
+      });
+
+      /* FAQ accordion */
+      document.querySelectorAll('.faq-item').forEach(function(item){
+        item.querySelector('.faq-pergunta').addEventListener('click', function(){
+          var open = item.classList.contains('open');
+          document.querySelectorAll('.faq-item.open').forEach(function(o){ o.classList.remove('open'); o.querySelector('.faq-pergunta').setAttribute('aria-expanded','false'); });
+          if(!open){ item.classList.add('open'); this.setAttribute('aria-expanded','true'); }
+        });
+      });
+
+      /* Sticky bar */
+      var stickyBar = document.getElementById('sticky-bar');
+      var hero      = document.getElementById('hero');
+      if(stickyBar && hero && 'IntersectionObserver' in window){
+        new IntersectionObserver(function(entries){
+          stickyBar.classList.toggle('visible', !entries[0].isIntersecting);
+        }, { threshold: 0.1 }).observe(hero);
+      }
+
+    });
+  </script>
+
+</body>
+</html>
