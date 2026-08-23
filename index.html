@@ -177,13 +177,13 @@
   .kicker{
     display: inline-block;
     font-family: var(--fonte-mono);
-    font-size: .78rem;
+    font-size: .82rem;
     font-weight: 500;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--cor-secundaria);
+    color: #2A3A24;
   }
-  .kicker-claro{ color: var(--cor-primaria); }
+  .kicker-claro{ color: #D4B896; }
 
   .titulo-xl{
     font-family: var(--fonte-titulo);
@@ -198,11 +198,16 @@
     font-size: clamp(1.8rem, 5.5vw, 2.5rem);
     line-height: 1.15;
   }
-  .titulo-destaque{ color: var(--cor-destaque); font-style: italic; }
+  .titulo-md{
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: clamp(1.3rem, 4vw, 1.6rem);
+    line-height: 1.2;
+  }
 
   .texto-lead{
     font-size: clamp(1rem, 3.6vw, 1.15rem);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.65;
   }
 
@@ -226,7 +231,7 @@
     font-weight: 600;
     font-size: .98rem;
     letter-spacing: .01em;
-    padding: 1.1rem 2rem;
+    padding: 1.2rem 2.25rem;
     border-radius: 999px;
     border: 1px solid transparent;
     cursor: pointer;
@@ -240,7 +245,7 @@
   .btn-primary{
     background: var(--cor-destaque);
     color: var(--cor-branco);
-    box-shadow: var(--sombra-sm);
+    box-shadow: 0 4px 20px rgba(184,92,56,.5);
   }
   .btn-primary:hover{ background: #a34f2e; box-shadow: var(--sombra-md); }
 
@@ -267,8 +272,19 @@
     gap: .5rem;
     font-family: var(--fonte-mono);
   }
-  .price-inline .old{ text-decoration: line-through; opacity: .5; font-size: .85em; }
   .price-inline .new{ font-weight: 500; color: var(--cor-destaque); }
+
+  .valor-ancora{
+    font-family: var(--fonte-mono);
+    font-size: .82rem;
+    opacity: .65;
+  }
+  .urgencia-note{
+    font-family: var(--fonte-mono);
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--cor-destaque);
+  }
 
   .trust-row{
     display: flex;
@@ -296,6 +312,13 @@
   .hero-inner{ display: flex; flex-direction: column; gap: 2.25rem; }
   .hero-content{ display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.1rem; }
   .hero-title{ max-width: 20ch; }
+  .hero-reveal{
+    font-family: var(--fonte-titulo);
+    font-style: normal;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    color: #8B3A1F;
+    margin-top: .4rem;
+  }
   .hero-sub{ max-width: 42ch; }
   .hero-price-row{ font-size: 1.05rem; padding-top: .25rem; }
   .hero-cta-group{ display: flex; flex-direction: column; align-items: center; gap: .9rem; width: 100%; margin-top: .5rem; }
@@ -312,9 +335,10 @@
 
   @media (min-width: 900px){
     .hero-inner{ display: grid; grid-template-columns: 1.05fr .95fr; gap: 3.5rem; align-items: center; }
-    .hero-content{ align-items: flex-start; text-align: left; }
+    .hero-content{ align-items: flex-start; text-align: left; order: 1; }
     .hero-cta-group{ align-items: flex-start; }
     .hero-media-frame{ aspect-ratio: 4 / 4.6; }
+    .hero-media{ order: 2; }
   }
 
   /* ============================================
@@ -323,44 +347,50 @@
   .agitacao{ background: var(--cor-texto); color: var(--cor-fundo); }
   .agitacao .section-head{ color: var(--cor-fundo); }
   .agitacao .titulo-lg{ color: var(--cor-fundo); }
-  .agitacao .texto-lead{ color: var(--cor-fundo); opacity: .8; }
   .agitacao a:focus-visible{ outline-color: var(--cor-primaria); }
 
-  .pain-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    margin-top: 2.5rem;
-  }
-  @media (min-width: 700px){ .pain-grid{ grid-template-columns: repeat(3, 1fr); } }
-  .pain-card{
-    background: rgba(248,245,240,.06);
-    border: 1px solid rgba(248,245,240,.14);
-    border-radius: var(--raio-lg);
-    padding: 1.5rem;
-    font-family: var(--fonte-titulo);
-    font-style: italic;
-    font-size: clamp(1.05rem, 3vw, 1.25rem);
-    line-height: 1.45;
-    color: var(--cor-primaria);
-  }
+  .pain-grid{ display:grid; grid-template-columns:1fr; gap:1rem; margin-top:2.5rem; }
+  @media (min-width:700px){ .pain-grid{ grid-template-columns:repeat(3,1fr); } }
+  .pain-card{ background:#252119; border:1px solid #363028; border-radius:16px; padding:1.25rem 1.1rem; display:flex; gap:.85rem; align-items:flex-start; }
+  .pain-icon{ font-size:1.6rem; line-height:1; flex-shrink:0; margin-top:.1rem; }
+  .pain-card p{ font-size:.96rem; color:#e4e0d6; margin:0; line-height:1.5; }
+
   .pain-quote{
     text-align: center;
-    margin-top: 2.75rem;
+    margin-top: 3rem;
     font-family: var(--fonte-titulo);
     font-weight: 600;
-    font-size: clamp(1.3rem, 4vw, 1.9rem);
+    font-size: clamp(1.4rem, 3.4vw, 1.9rem);
     line-height: 1.3;
     max-width: 30ch;
     margin-inline: auto;
+    color: var(--cor-primaria);
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(196,168,130,.4);
   }
 
   /* ============================================
      SOLUÇÃO — mockup estático
      ============================================ */
+  .solucao-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2.5rem;
+    align-items: center;
+  }
+  @media (min-width: 900px){ .solucao-grid{ grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  .solucao-media{
+    border-radius: var(--raio-lg);
+    overflow: hidden;
+    box-shadow: var(--sombra-md);
+    aspect-ratio: 4 / 5;
+  }
+  .solucao-media img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  .solucao-grid .mockup-frame{ margin: 0 auto; }
+
   .mockup-frame{
     max-width: 460px;
-    margin: 2.5rem auto 0;
     background: var(--cor-branco);
     border: 1px solid var(--cor-borda);
     border-radius: var(--raio-lg);
@@ -466,116 +496,60 @@
   }
 
   /* ============================================
-     PROVA SOCIAL — chats estilo WhatsApp (HTML puro)
+     PROVA SOCIAL — prints de depoimentos
      ============================================ */
-  .chats-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-  }
-  @media (min-width: 900px){ .chats-grid{ grid-template-columns: repeat(3, 1fr); } }
-  .chat-card{
-    background: #E5DDD1;
-    border-radius: var(--raio-lg);
-    overflow: hidden;
-    box-shadow: var(--sombra-sm);
-    border: 1px solid var(--cor-borda);
-  }
-  .chat-header{
-    display: flex;
-    align-items: center;
-    gap: .7rem;
-    background: var(--cor-secundaria);
-    color: var(--cor-branco);
-    padding: .85rem 1rem;
-  }
-  .chat-avatar{
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    background: var(--cor-primaria);
-    color: var(--cor-texto);
-    font-family: var(--fonte-mono);
-    font-size: .8rem;
-    font-weight: 500;
-    flex-shrink: 0;
-  }
-  .chat-name{ font-family: var(--fonte-corpo); font-weight: 600; font-size: .9rem; }
-  .chat-status{ font-family: var(--fonte-corpo); font-size: .72rem; opacity: .75; }
-  .chat-body{ padding: 1rem .85rem; display: flex; flex-direction: column; gap: .55rem; }
-  .bubble{
-    max-width: 84%;
-    padding: .55rem .75rem;
-    border-radius: var(--raio-sm);
-    font-size: .85rem;
-    line-height: 1.4;
-    box-shadow: 0 1px 1px rgba(0,0,0,.08);
-  }
-  .bubble-in{ background: var(--cor-branco); align-self: flex-start; border-top-left-radius: 2px; }
-  .bubble-out{ background: #DCF8C6; align-self: flex-end; border-top-right-radius: 2px; }
-  .bubble-meta{
-    display: block;
-    text-align: right;
-    font-family: var(--fonte-mono);
-    font-size: .62rem;
-    color: var(--cor-texto);
-    opacity: .45;
-    margin-top: .25rem;
-  }
+  .prova-grid{ display:grid; grid-template-columns:1fr; gap:1.25rem; margin-top:2.5rem; }
+  @media (min-width:700px){ .prova-grid{ grid-template-columns:repeat(3,1fr); } }
+  .prova-item{ border-radius:16px; overflow:hidden; box-shadow:0 2px 16px rgba(0,0,0,.10); width:100%; display:block; }
+  .prova-item-wa{ background:#0e1c0e; }
+  .prova-item-wa img{ width:100%; height:auto; display:block; }
+  .prova-item-ig{ background:var(--cor-branco); }
+  .prova-item-ig img{ width:100%; height:auto; display:block; }
 
   /* ============================================
      OFERTA
      ============================================ */
-  .oferta-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-    margin-top: 2.5rem;
-    align-items: start;
-  }
-  @media (min-width: 900px){ .oferta-grid{ grid-template-columns: 1.1fr .9fr; } }
-  .oferta-list{ display: flex; flex-direction: column; gap: .1rem; }
-  .oferta-list li{
-    display: flex;
-    align-items: flex-start;
-    gap: .75rem;
-    padding: .85rem 0;
-    border-bottom: 1px solid var(--cor-borda);
-    font-size: .96rem;
-  }
-  .oferta-list li:last-child{ border-bottom: none; }
-  .oferta-check{
-    flex-shrink: 0;
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    background: var(--cor-secundaria);
-    color: var(--cor-branco);
-    display: flex; align-items: center; justify-content: center;
-    font-size: .7rem;
-    margin-top: .1rem;
-  }
-  .price-card{
-    background: var(--cor-branco);
-    border: 1px solid var(--cor-borda);
-    border-radius: var(--raio-lg);
-    box-shadow: var(--sombra-md);
-    padding: 2rem 1.75rem;
-    text-align: center;
+  .oferta-grid{ display:grid; grid-template-columns:1fr; gap:2.5rem; margin-top:2.5rem; align-items:start; }
+  @media (min-width:900px){ .oferta-grid{ grid-template-columns:1.2fr 0.8fr; } }
+  .oferta-list{ display:flex; flex-direction:column; gap:.5rem; }
+  .oferta-list li{ display:flex; align-items:flex-start; gap:.75rem; padding:.65rem 0; font-size:1rem; border-bottom:none; }
+  .oferta-check{ flex-shrink:0; width:22px; height:22px; border-radius:6px; background:var(--cor-secundaria); color:var(--cor-branco); display:flex; align-items:center; justify-content:center; font-size:.75rem; margin-top:.1rem; }
+  .price-card{ background:var(--cor-branco); border:2px solid var(--cor-primaria); border-radius:20px; box-shadow:0 8px 30px rgba(26,24,20,.08); padding:2.25rem 1.75rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:.85rem; }
+  .price-new{ font-family:var(--fonte-titulo); font-weight:800; font-size:clamp(3rem,9vw,4rem); color:var(--cor-destaque); line-height:1; }
+  .price-condicao{ font-family:var(--fonte-corpo); font-size:.85rem; color:#6b675f; }
+  .price-ancora-pill{ background:#e4ecda; color:#2D4A23; font-size:.85rem; font-weight:600; padding:.4rem 1rem; border-radius:20px; }
+  .price-trust{ display:flex; flex-direction:column; gap:.4rem; font-size:.82rem; color:#6b675f; margin-top:.25rem; }
+
+  /* ============================================
+     GARANTIA
+     ============================================ */
+  .garantia-inner{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:1rem; max-width:600px; margin:0 auto; }
+  .garantia-icon{ color:#fff; }
+
+  /* ============================================
+     HUMANIZAÇÃO
+     ============================================ */
+  .humanizacao{ background: var(--cor-branco); }
+  .humanizacao-inner{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    text-align: center;
+    gap: 1.5rem;
+    max-width: 640px;
+    margin: 0 auto;
   }
-  .price-old{ font-family: var(--fonte-mono); font-size: 1rem; text-decoration: line-through; opacity: .45; }
-  .price-new{
-    font-family: var(--fonte-titulo);
-    font-weight: 600;
-    font-size: clamp(2.75rem, 9vw, 3.5rem);
-    color: var(--cor-destaque);
-    line-height: 1;
+  .humanizacao-foto{
+    width: 108px; height: 108px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: var(--sombra-sm);
   }
-  .price-condicao{ font-family: var(--fonte-mono); font-size: .78rem; opacity: .65; text-transform: uppercase; letter-spacing: .05em; }
+  .humanizacao-foto img{ width: 100%; height: 100%; object-fit: cover; }
+  @media (min-width: 700px){
+    .humanizacao-inner{ flex-direction: row; text-align: left; max-width: 780px; }
+  }
 
   /* ============================================
      DEMO INTERATIVA
@@ -721,11 +695,41 @@
 
   /* ---------- Rodapé ---------- */
   .rodape{ text-align: center; padding-block: 2.5rem; font-family: var(--fonte-mono); font-size: .75rem; opacity: .5; }
+
+  .urgency-bar{
+    position:sticky; top:0; z-index:1000;
+    background:#2D4A23;
+    color:#fff;
+    font-size:13px;
+    font-family:var(--fonte-corpo);
+    padding:10px 16px;
+  }
+  .urgency-inner{
+    max-width:1080px; margin:0 auto;
+    display:flex; align-items:center; justify-content:center;
+    gap:14px; flex-wrap:wrap; text-align:center;
+  }
+  .urgency-cta{
+    background:rgba(255,255,255,.15);
+    color:#fff;
+    padding:5px 14px; border-radius:20px;
+    font-weight:600; font-size:13px;
+    white-space:nowrap;
+    transition:background .2s ease;
+  }
+  .urgency-cta:hover{ background:rgba(255,255,255,.28); }
 </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RKB279X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1017904621080700&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
+
+<div class="urgency-bar">
+  <div class="urgency-inner">
+    <span>⏱ Preço de lançamento: R$47 pagamento único · Acesso imediato</span>
+    <a href="https://pay.kiwify.com.br/BvlfZuj" class="urgency-cta js-checkout-cta">Garantir agora →</a>
+  </div>
+</div>
 
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
@@ -736,13 +740,16 @@
        ============================================ -->
   <section class="hero">
     <div class="container hero-inner">
+      <div class="hero-media">
+        <div class="hero-media-frame">
+          <img src="RECEITAS/LANCHE-E-SOBREMESA/PANQUECA-BOMBOM-DE-MORANGO/PANQUECA-BOMBOM-DE-MORANGO.webp" alt="Panqueca proteica recheada com morango e cobertura de chocolate, uma das mais de 50 receitas da Biblioteca Proteica da Lívia" fetchpriority="high" loading="eager" decoding="async">
+        </div>
+      </div>
       <div class="hero-content">
-        <span class="kicker">Biblioteca digital · +50 receitas proteicas</span>
-        <h1 class="titulo-xl hero-title">Quando bater a pergunta <span class="titulo-destaque">"o que eu vou comer?"</span>, a resposta já está aqui.</h1>
-        <p class="texto-lead hero-sub">Mais de 50 receitas proteicas de verdade, com atualizações mensais — doces, salgadas e rápidas — com busca por ingrediente e cardápio pronto. Nada de PDF de 80 páginas que você abre uma vez e nunca mais acha.</p>
-        <p class="price-inline hero-price-row"><span class="old">R$97</span> <span class="new">R$47 · pagamento único</span></p>
+        <h1 class="titulo-xl hero-title">Você sabe que deveria comer mais proteína. O problema é que você trava toda hora no "e agora, o que eu faço?"</h1>
+        <p class="texto-lead hero-sub">A Biblioteca Proteica da Lívia resolve isso: mais de 50 receitas gostosas, buscáveis por ingrediente, disponíveis na hora que você precisa. R$47. Uma vez. Pra sempre.</p>
         <div class="hero-cta-group">
-          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero a biblioteca agora →</a>
+          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero parar de travar na frente da geladeira →</a>
           <div class="trust-row">
             <span>Acesso imediato</span>
             <span>·</span>
@@ -750,11 +757,6 @@
             <span>·</span>
             <span>Sem assinatura</span>
           </div>
-        </div>
-      </div>
-      <div class="hero-media">
-        <div class="hero-media-frame">
-          <img src="RECEITAS/LANCHE-E-SOBREMESA/PANQUECA-BOMBOM-DE-MORANGO/PANQUECA-BOMBOM-DE-MORANGO.webp" alt="Panqueca proteica recheada com morango e cobertura de chocolate, uma das mais de 50 receitas da Biblioteca Proteica da Lívia" fetchpriority="high" loading="eager" decoding="async">
         </div>
       </div>
     </div>
@@ -766,16 +768,31 @@
   <section class="section agitacao">
     <div class="container">
       <div class="section-head">
-        <span class="kicker kicker-claro">O que ninguém te conta</span>
-        <h2 class="titulo-lg">O problema nunca foi força de vontade.</h2>
-        <p class="texto-lead">Você já cortou o açúcar. Já trocou o pão. Já jurou que essa semana ia ser diferente. Aí chega terça-feira, o cansaço bate, a geladeira só tem frango cru e ovo — e a única receita que você lembra é sempre a mesma, quando lembra de alguma. Isso não é falta de disciplina. É falta de repertório.</p>
+        <h2 class="titulo-lg">Você reconhece alguma dessas situações?</h2>
       </div>
       <div class="pain-grid">
-        <p class="pain-card">"Preparo as mesmas coisas de sempre. Chega uma hora que enjoa, mas não sei o que mais fazer."</p>
-        <p class="pain-card">"Pesquiso receita fit rápida no Google e fico na dúvida se aquilo realmente vai ficar bom."</p>
-        <p class="pain-card">"Sei que preciso comer proteína todo dia. Mas preparar sempre do mesmo jeito enjoa demais."</p>
+        <div class="pain-card">
+          <span class="pain-icon">🥱</span>
+          <p>Toda semana o mesmo frango grelhado porque não sabe mais o que inventar</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon">📱</span>
+          <p>Já baixou 4 apps de receita e não usa nenhum</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon">🛒</span>
+          <p>Compra ingredientes saudáveis e eles apodrecem na geladeira</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon">😩</span>
+          <p>No fim do dia exausta, pede delivery e sente culpa depois</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon">🔍</span>
+          <p>Passa 20 minutos tentando achar uma receita proteica que preste</p>
+        </div>
       </div>
-      <p class="pain-quote">E se, toda vez que a geladeira tivesse só três ingredientes, existisse uma receita pronta pra eles?</p>
+      <p class="pain-quote">"Não é falta de força de vontade. É falta de um sistema que funcione quando você precisa."</p>
     </div>
   </section>
 
@@ -785,141 +802,67 @@
   <section class="section solucao">
     <div class="container">
       <div class="section-head">
-        <span class="kicker">A solução</span>
-        <h2 class="titulo-lg">Uma biblioteca de receitas — não mais um arquivo perdido.</h2>
-        <p class="texto-lead">A Biblioteca Proteica da Lívia é um e-book interativo: você abre no celular, digita o que tem na geladeira, e a receita aparece na hora. Sem rolar 80 páginas. Sem adivinhar substituição.</p>
+        <span class="kicker">Chega de adivinhar</span>
+        <h2 class="titulo-lg">Abriu. Escolheu. Cozinhou.</h2>
+        <p class="texto-lead">A Biblioteca Proteica da Lívia não é mais um arquivo perdido no celular. É uma busca de verdade: você digita o que tem em casa, a receita aparece. Falta um ingrediente? Tem substituição pronta. Quer planejar a semana? O cardápio monta sozinho. Tudo no celular, sem baixar nada.</p>
       </div>
 
-      <div class="mockup-frame" aria-hidden="true">
-        <div class="mockup-topbar">
-          <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
+      <div class="solucao-grid">
+        <div class="solucao-media">
+          <img src="RECEITAS/LANCHE-E-SOBREMESA/BROWNIE-PROTEICO/BROWNIE-PROTEICO.webp" alt="Brownie proteico" loading="lazy" decoding="async">
         </div>
-        <div class="mockup-body">
-          <div class="mockup-search">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <span>frango, batata doce...</span>
+        <div class="mockup-frame" aria-hidden="true">
+          <div class="mockup-topbar">
+            <span class="mockup-dot"></span><span class="mockup-dot"></span><span class="mockup-dot"></span>
           </div>
-          <div class="mockup-results">
-            <div class="mockup-card">
-              <div class="mockup-card-img"><img src="RECEITAS/ALMOCO-E-JANTA/KEBAB-DE-FRANGO/KEBAB-DE-FRANGO.webp" alt="Kebab de frango" loading="lazy" decoding="async"></div>
-              <span class="mockup-card-nome">Kebab de Frango</span>
+          <div class="mockup-body">
+            <div class="mockup-search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <span>frango, batata doce...</span>
             </div>
-            <div class="mockup-card">
-              <div class="mockup-card-img"><img src="RECEITAS/ALMOCO-E-JANTA/TORTA-DE-FRANGO-E-TAPIOCA/TORTA-DE-FRANGO-E-TAPIOCA.webp" alt="Torta de frango e tapioca" loading="lazy" decoding="async"></div>
-              <span class="mockup-card-nome">Torta de Frango e Tapioca</span>
-            </div>
-            <div class="mockup-card">
-              <div class="mockup-card-img"><img src="RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp" alt="Brigadeiro fit de café" loading="lazy" decoding="async"></div>
-              <span class="mockup-card-nome">Brigadeiro Fit de Café</span>
-            </div>
-            <div class="mockup-card">
-              <div class="mockup-card-img"><img src="RECEITAS/CAFE-DA-MANHA/CREPIOCA-DE-BANOFFEE/CREPIOCA-DE-BANOFFEE.webp" alt="Crepioca de banoffee" loading="lazy" decoding="async"></div>
-              <span class="mockup-card-nome">Crepioca de Banoffee</span>
+            <div class="mockup-results">
+              <div class="mockup-card">
+                <div class="mockup-card-img"><img src="RECEITAS/ALMOCO-E-JANTA/KEBAB-DE-FRANGO/KEBAB-DE-FRANGO.webp" alt="Kebab de frango" loading="lazy" decoding="async"></div>
+                <span class="mockup-card-nome">Kebab de Frango</span>
+              </div>
+              <div class="mockup-card">
+                <div class="mockup-card-img"><img src="RECEITAS/ALMOCO-E-JANTA/TORTA-DE-FRANGO-E-TAPIOCA/TORTA-DE-FRANGO-E-TAPIOCA.webp" alt="Torta de frango e tapioca" loading="lazy" decoding="async"></div>
+                <span class="mockup-card-nome">Torta de Frango e Tapioca</span>
+              </div>
+              <div class="mockup-card">
+                <div class="mockup-card-img"><img src="RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp" alt="Brigadeiro proteico de café" loading="lazy" decoding="async"></div>
+                <span class="mockup-card-nome">Brigadeiro Proteico de Café</span>
+              </div>
+              <div class="mockup-card">
+                <div class="mockup-card-img"><img src="RECEITAS/CAFE-DA-MANHA/CREPIOCA-DE-BANOFFEE/CREPIOCA-DE-BANOFFEE.webp" alt="Crepioca de banoffee" loading="lazy" decoding="async"></div>
+                <span class="mockup-card-nome">Crepioca de Banoffee</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
       <div class="solucao-cta-row">
-        <p class="price-inline"><span class="old">R$97</span> <span class="new">R$47 · lançamento</span></p>
-        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero acesso agora — R$47</a>
+        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero acesso imediato</a>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       4. GALERIA EMOCIONAL
+       3.5. PROVA SOCIAL — prints de depoimentos reais
        ============================================ -->
-  <section class="section bg-superficie">
-    <div class="container">
-      <div class="section-head">
-        <span class="kicker">Só pra abrir o apetite</span>
-        <h2 class="titulo-lg">Mais de 50 receitas assim, prontas pra qualquer hora do dia.</h2>
-        <p class="texto-lead">Com sugestões de substituição para quando faltar algum ingrediente.</p>
-      </div>
-      <div class="galeria-grid">
-        <figure class="galeria-item">
-          <div class="galeria-img"><img src="RECEITAS/LANCHE-E-SOBREMESA/BROWNIE-PROTEICO/BROWNIE-PROTEICO.webp" alt="Brownie proteico com textura úmida e cobertura de chocolate" loading="lazy" decoding="async"></div>
-          <figcaption class="galeria-caption">Brownie Proteico</figcaption>
-        </figure>
-        <figure class="galeria-item">
-          <div class="galeria-img"><img src="RECEITAS/ALMOCO-E-JANTA/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO.webp" alt="Pizza proteica com massa de frango, queijo derretido e cobertura colorida" loading="lazy" decoding="async"></div>
-          <figcaption class="galeria-caption">Pizza Proteica com Massa de Frango</figcaption>
-        </figure>
-        <figure class="galeria-item">
-          <div class="galeria-img"><img src="RECEITAS/LANCHE-E-SOBREMESA/BOLO-DE-BANANA-COM-AVEIA-E-DOCE-DE-LEITE/BOLO-DE-BANANA-COM-AVEIA-E-DOCE-DE-LEITE.webp" alt="Bolo de banana com aveia e doce de leite" loading="lazy" decoding="async"></div>
-          <figcaption class="galeria-caption">Bolo de Banana com Aveia e Doce de Leite</figcaption>
-        </figure>
-        <figure class="galeria-item">
-          <div class="galeria-img"><img src="RECEITAS/ALMOCO-E-JANTA/ENROLADO-DE-FRANGO-RECHEADO/ENROLADO-DE-FRANGO-RECHEADO.webp" alt="Enrolado de frango recheado fatiado" loading="lazy" decoding="async"></div>
-          <figcaption class="galeria-caption">Enrolado de Frango Recheado</figcaption>
-        </figure>
-        <figure class="galeria-item">
-          <div class="galeria-img"><img src="RECEITAS/LANCHE-E-SOBREMESA/PUDIM-FIT/PUDIM-FIT.webp" alt="Pudim fit cremoso com calda" loading="lazy" decoding="async"></div>
-          <figcaption class="galeria-caption">Pudim Fit</figcaption>
-        </figure>
-        <figure class="galeria-item">
-          <div class="galeria-img"><img src="RECEITAS/LANCHE-E-SOBREMESA/PANQUECA-BOMBOM-DE-MORANGO/PANQUECA-BOMBOM-DE-MORANGO.webp" alt="Panqueca bombom de morango" loading="lazy" decoding="async"></div>
-          <figcaption class="galeria-caption">Panqueca Bombom de Morango</figcaption>
-        </figure>
-      </div>
-
-      <div class="substituicao-callout">
-        <h3 class="substituicao-titulo">Quantas vezes você deixou de fazer uma receita porque faltava um ingrediente?</h3>
-        <p class="texto-lead">Na Biblioteca, cada receita vem com sugestões de substituição — para você não travar nem desanimar quando a geladeira não está completa.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       5. PROVA SOCIAL — estilo WhatsApp (HTML puro, placeholder)
-       ============================================ -->
-  <!-- ATENÇÃO: conversas simuladas para preview de layout. Substituir por
-       prints reais de depoimentos de alunas assim que estiverem disponíveis. -->
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <span class="kicker">Quem já tá usando</span>
-        <h2 class="titulo-lg">Não sou só eu que acho isso útil.</h2>
+        <span class="kicker">Quem já está usando</span>
+        <h2 class="titulo-lg">A reação de quem abriu pela primeira vez.</h2>
       </div>
-      <div class="chats-grid">
-        <div class="chat-card">
-          <div class="chat-header">
-            <span class="chat-avatar">P</span>
-            <div><span class="chat-name">Patrícia Almeida</span><br><span class="chat-status">online</span></div>
-          </div>
-          <div class="chat-body">
-            <div class="bubble bubble-in">Boa noite! Só passando para agradecer pela Biblioteca Proteica. A busca por ingrediente facilitou muito o meu planejamento da semana.<span class="bubble-meta">20:14</span></div>
-            <div class="bubble bubble-out">Que alegria receber essa mensagem, Patrícia! Fico muito feliz que esteja sendo útil no seu dia a dia 😊<span class="bubble-meta">20:16 ✓✓</span></div>
-            <div class="bubble bubble-in">Já recomendei para duas colegas de trabalho. Parabéns pelo material, muito bem organizado.<span class="bubble-meta">20:19</span></div>
-          </div>
-        </div>
-        <div class="chat-card">
-          <div class="chat-header">
-            <span class="chat-avatar">J</span>
-            <div><span class="chat-name">Ju 💛</span><br><span class="chat-status">digitando...</span></div>
-          </div>
-          <div class="chat-body">
-            <div class="bubble bubble-in">amiga vc já viu a Biblioteca Proteica da Lívia? tô chocada de tão bom kkkkk<span class="bubble-meta">14:02</span></div>
-            <div class="bubble bubble-out">não, o que é isso?<span class="bubble-meta">14:03 ✓✓</span></div>
-            <div class="bubble bubble-in">um catálogo de receita fit com busca por ingrediente, testei ontem e já fiz 2 receitas<span class="bubble-meta">14:05</span></div>
-            <div class="bubble bubble-out">sério?? quanto tá<span class="bubble-meta">14:05 ✓✓</span></div>
-            <div class="bubble bubble-in">só R$47, pagamento único, vale muito a pena. bora comprar junto 🙌<span class="bubble-meta">14:06</span></div>
-            <div class="bubble bubble-out">bora sim, me manda o link<span class="bubble-meta">14:07 ✓✓</span></div>
-          </div>
-        </div>
-        <div class="chat-card">
-          <div class="chat-header">
-            <span class="chat-avatar">C</span>
-            <div><span class="chat-name">Cami 🏋️</span><br><span class="chat-status">visto por último hoje às 07:42</span></div>
-          </div>
-          <div class="chat-body">
-            <div class="bubble bubble-in">amei as receitas<span class="bubble-meta">07:38</span></div>
-            <div class="bubble bubble-out">que bom! 🥰<span class="bubble-meta">07:39 ✓✓</span></div>
-            <div class="bubble bubble-in">consegui manter a semana toda sem enjoar<span class="bubble-meta">07:41</span></div>
-            <div class="bubble bubble-in">sinto que finalmente tô no caminho certo<span class="bubble-meta">07:42</span></div>
-          </div>
-        </div>
+      <div class="prova-grid">
+        <div class="prova-item prova-item-ig"><img src="prova-social/IG1 — Juliana Mendes.webp" alt="Comentário Juliana" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-ig"><img src="prova-social/IG2 — Carolina Alves.webp" alt="Comentário Carolina" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-wa"><img src="prova-social/WA1 — Thaís.webp" alt="Depoimento Thaís" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-wa"><img src="prova-social/WA2 — Rafa.webp" alt="Depoimento Rafa" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-wa"><img src="prova-social/WA3 — Bruna.webp" alt="Depoimento Bruna" loading="lazy" decoding="async"></div>
       </div>
     </div>
   </section>
@@ -929,9 +872,8 @@
        ============================================ -->
   <section class="section bg-superficie">
     <div class="container">
-      <div class="section-head">
-        <span class="kicker">O que vem na biblioteca</span>
-        <h2 class="titulo-lg">Tudo isso, por um pagamento único.</h2>
+      <div class="section-head" style="align-items:flex-start;text-align:left;">
+        <h2 class="titulo-lg" style="text-align:left;">O que está dentro por R$47</h2>
       </div>
       <div class="oferta-grid">
         <ul class="oferta-list">
@@ -944,12 +886,31 @@
           <li><span class="oferta-check">✓</span><span>Atualizações futuras inclusas, sem custo extra</span></li>
         </ul>
         <div class="price-card">
-          <span class="price-old">R$97</span>
           <span class="price-new">R$47</span>
-          <span class="price-condicao">Pagamento único · sem mensalidade</span>
-          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero a biblioteca agora</a>
+          <span class="price-condicao">Pagamento único · Sem mensalidade</span>
+          <span class="price-ancora-pill">Menos que uma consulta com nutricionista</span>
+          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj" style="width:100%;margin-top:.5rem;">Garantir meu acesso agora →</a>
+          <div class="price-trust">
+            <span>🔒 Checkout seguro</span>
+            <span>🛡️ 7 dias de garantia</span>
+            <span>⚡ Acesso imediato</span>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       6.5. GARANTIA
+       ============================================ -->
+  <section class="section" style="background:#2D4A23;">
+    <div class="container garantia-inner">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true">
+        <path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z" stroke-linejoin="round"></path>
+        <path d="M8.5 12.5l2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <h3 class="titulo-lg" style="color:#fff;">Risco zero. Só seu.</h3>
+      <p class="texto-lead" style="color:#e7ecdf; max-width:520px;">Acesse a Biblioteca, use as receitas, explore a busca. Se em 7 dias você achar que não valeu — por qualquer motivo — é só pedir reembolso. Sem perguntas, sem burocracia. O risco é 100% nosso.</p>
     </div>
   </section>
 
@@ -985,7 +946,7 @@
 
       <div class="demo-cta-row">
         <p class="texto-lead">Gostou do que viu? Isso é só uma prova. Lá dentro são mais de 50, com atualizações mensais.</p>
-        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero acesso completo — R$47</a>
+        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero as receitas completas</a>
       </div>
     </div>
   </section>
@@ -1028,18 +989,18 @@
     </div>
   </section>
 
-  <section class="section cta-final">
-    <div class="container cta-final-inner">
-      <span class="kicker kicker-claro">Chega de terça-feira sem ideia</span>
-      <h2 class="titulo-lg">Comece hoje, não segunda-feira.</h2>
-      <span class="price-old">R$97</span>
-      <span class="price-new">R$47</span>
-      <span class="price-condicao">Pagamento único · acesso imediato</span>
-      <a class="btn btn-claro js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero a Biblioteca Proteica agora</a>
-      <div class="trust-row">
-        <span>Garantia de 7 dias</span>
+  <section class="section" style="background:var(--cor-texto); text-align:center;">
+    <div class="container cta-final-inner" style="display:flex; flex-direction:column; align-items:center; gap:1.25rem;">
+      <h2 class="titulo-lg" style="color:#fff; max-width:680px;">Sua próxima refeição já pode ser diferente.</h2>
+      <p class="texto-lead" style="color:#d8d3c7;">50+ receitas proteicas. Busca por ingrediente. R$47 pra sempre.</p>
+      <span class="price-new" style="color:var(--cor-primaria);">R$47</span>
+      <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Começar agora — R$47 →</a>
+      <div class="trust-row" style="color:#fff; opacity:.75;">
+        <span>⚡ Acesso imediato</span>
         <span>·</span>
-        <span>Checkout seguro via Kiwify</span>
+        <span>🛡️ Garantia de 7 dias</span>
+        <span>·</span>
+        <span>🚫 Sem mensalidade</span>
       </div>
     </div>
   </section>
@@ -1083,10 +1044,10 @@
     {n:'Pizza Proteica com Massa de Frango', img:'RECEITAS/ALMOCO-E-JANTA/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO/PIZZA-PROTEICA-COM-MASSA-DE-FRANGO.webp', t:['frango','pizza','queijo','salgado']},
     {n:'Bolo de Banana com Aveia e Doce de Leite', img:'RECEITAS/LANCHE-E-SOBREMESA/BOLO-DE-BANANA-COM-AVEIA-E-DOCE-DE-LEITE/BOLO-DE-BANANA-COM-AVEIA-E-DOCE-DE-LEITE.webp', t:['banana','aveia','bolo','doce']},
     {n:'Enrolado de Frango Recheado', img:'RECEITAS/ALMOCO-E-JANTA/ENROLADO-DE-FRANGO-RECHEADO/ENROLADO-DE-FRANGO-RECHEADO.webp', t:['frango','queijo','salgado']},
-    {n:'Pudim Fit', img:'RECEITAS/LANCHE-E-SOBREMESA/PUDIM-FIT/PUDIM-FIT.webp', t:['doce','sobremesa']},
+    {n:'Pudim Proteico', img:'RECEITAS/LANCHE-E-SOBREMESA/PUDIM-FIT/PUDIM-FIT.webp', t:['doce','sobremesa']},
     {n:'Kebab de Frango', img:'RECEITAS/ALMOCO-E-JANTA/KEBAB-DE-FRANGO/KEBAB-DE-FRANGO.webp', t:['frango','salgado']},
     {n:'Torta de Frango e Tapioca', img:'RECEITAS/ALMOCO-E-JANTA/TORTA-DE-FRANGO-E-TAPIOCA/TORTA-DE-FRANGO-E-TAPIOCA.webp', t:['frango','tapioca','salgado']},
-    {n:'Brigadeiro Fit de Café', img:'RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp', t:['chocolate','doce']},
+    {n:'Brigadeiro Proteico de Café', img:'RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp', t:['chocolate','doce']},
     {n:'Crepioca de Banoffee', img:'RECEITAS/CAFE-DA-MANHA/CREPIOCA-DE-BANOFFEE/CREPIOCA-DE-BANOFFEE.webp', t:['banana','doce','tapioca']}
   ];
 
