@@ -1,7 +1,8 @@
 {
   "redirects": [
     { "source": "/", "destination": "/lp-proteico/", "permanent": false },
-    { "source": "/prod-ebookproteico", "destination": "https://livia-valenca-ebook.vercel.app", "permanent": false }
+    { "source": "/prod-ebookproteico", "destination": "https://livia-valenca-ebook.vercel.app", "permanent": false },
+    { "source": "/prod-ebookproteico/", "destination": "https://livia-valenca-ebook.vercel.app", "permanent": false }
   ],
   "headers": [
     {
