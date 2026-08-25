@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/", "destination": "/lp-proteico/", "permanent": false }
+  ],
   "headers": [
     {
       "source": "/fonts/(.*)",
