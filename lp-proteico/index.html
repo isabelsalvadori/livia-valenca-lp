@@ -112,7 +112,7 @@
     --sombra-sm: 0 2px 10px rgba(26,24,20,.08);
     --sombra-md: 0 10px 30px rgba(26,24,20,.14);
 
-    --espaco-secao: clamp(3.25rem, 8vw, 6rem);
+    --espaco-secao: clamp(3.5rem, 9vw, 7rem);
   }
 
   /* ---------- Reset ---------- */
@@ -279,12 +279,6 @@
     font-size: .82rem;
     opacity: .65;
   }
-  .urgencia-note{
-    font-family: var(--fonte-mono);
-    font-size: .8rem;
-    font-weight: 500;
-    color: var(--cor-destaque);
-  }
 
   .trust-row{
     display: flex;
@@ -315,9 +309,10 @@
   .hero-reveal{
     font-family: var(--fonte-titulo);
     font-style: normal;
+    font-weight: 600;
     font-size: clamp(1.6rem, 5vw, 2.2rem);
     color: #8B3A1F;
-    margin-top: .4rem;
+    max-width: 22ch;
   }
   .hero-sub{ max-width: 42ch; }
   .hero-price-row{ font-size: 1.05rem; padding-top: .25rem; }
@@ -342,7 +337,7 @@
   }
 
   /* ============================================
-     AGITAÇÃO (seção escura)
+     IDENTIFICAÇÃO COM A DOR (seção escura)
      ============================================ */
   .agitacao{ background: var(--cor-texto); color: var(--cor-fundo); }
   .agitacao .section-head{ color: var(--cor-fundo); }
@@ -362,32 +357,32 @@
     font-weight: 600;
     font-size: clamp(1.4rem, 3.4vw, 1.9rem);
     line-height: 1.3;
-    max-width: 30ch;
+    max-width: 34ch;
     margin-inline: auto;
     color: var(--cor-primaria);
-    padding: 1.5rem 0;
+    padding: 1.5rem 0 0;
     border-top: 1px solid rgba(196,168,130,.4);
   }
 
   /* ============================================
-     SOLUÇÃO — mockup estático
+     MECANISMO — mockup estático
      ============================================ */
-  .solucao-grid{
+  .mecanismo-grid{
     display: grid;
     grid-template-columns: 1fr;
     gap: 2rem;
     margin-top: 2.5rem;
     align-items: center;
   }
-  @media (min-width: 900px){ .solucao-grid{ grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
-  .solucao-media{
+  @media (min-width: 900px){ .mecanismo-grid{ grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  .mecanismo-media{
     border-radius: var(--raio-lg);
     overflow: hidden;
     box-shadow: var(--sombra-md);
     aspect-ratio: 4 / 5;
   }
-  .solucao-media img{ width: 100%; height: 100%; object-fit: cover; display: block; }
-  .solucao-grid .mockup-frame{ margin: 0 auto; }
+  .mecanismo-media img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mecanismo-grid .mockup-frame{ margin: 0 auto; }
 
   .mockup-frame{
     max-width: 460px;
@@ -436,16 +431,25 @@
   .mockup-card-img img{ width: 100%; height: 100%; object-fit: cover; }
   .mockup-card-nome{ font-size: .78rem; font-weight: 600; padding: .5rem .6rem; line-height: 1.25; }
 
-  .solucao-cta-row{
+  .mecanismo-nota{
+    text-align: center;
+    margin-top: 1.75rem;
+    font-family: var(--fonte-mono);
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--cor-secundaria);
+  }
+
+  .mecanismo-cta-row{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    margin-top: 2.5rem;
+    margin-top: 2rem;
   }
 
   /* ============================================
-     GALERIA EMOCIONAL
+     GALERIA DE RECEITAS
      ============================================ */
   .galeria-grid{
     display: grid;
@@ -466,34 +470,92 @@
   .galeria-caption{
     position: absolute;
     left: 0; right: 0; bottom: 0;
-    padding: 1rem;
-    background: linear-gradient(to top, rgba(26,24,20,.85), transparent);
+    padding: .9rem 1rem;
+    background: linear-gradient(to top, rgba(26,24,20,.88), transparent 85%);
     color: var(--cor-branco);
-    font-family: var(--fonte-titulo);
-    font-style: italic;
-    font-size: 1.1rem;
+    font-family: var(--fonte-corpo);
+    font-weight: 600;
+    font-size: .92rem;
   }
 
-  .substituicao-callout{
-    max-width: 640px;
-    margin: 3rem auto 0;
+  /* ============================================
+     FUNCIONALIDADES / BENEFÍCIOS
+     ============================================ */
+  .beneficios-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .75rem;
+    margin-top: 2.5rem;
+  }
+  @media (min-width: 700px){ .beneficios-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px){ .beneficios-grid{ grid-template-columns: repeat(3, 1fr); } }
+  .beneficio-item{
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .9rem 1.1rem;
+    background: var(--cor-branco);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-md);
+    font-size: .95rem;
+  }
+  .check-badge{
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 6px;
+    background: var(--cor-secundaria);
+    color: var(--cor-branco);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .75rem;
+  }
+
+  /* ============================================
+     SUBSTITUIÇÕES
+     ============================================ */
+  .substituicao-card{
+    max-width: 760px;
+    margin: 2.5rem auto 0;
     background: var(--cor-branco);
     border: 1px solid var(--cor-borda);
     border-radius: var(--raio-lg);
     box-shadow: var(--sombra-sm);
-    padding: 2rem 1.75rem;
-    text-align: center;
+    padding: 1.75rem 1.25rem;
+  }
+  .substituicao-fluxo{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: .85rem;
   }
-  .substituicao-titulo{
-    font-family: var(--fonte-titulo);
-    font-weight: 600;
-    font-size: clamp(1.3rem, 4vw, 1.7rem);
-    line-height: 1.32;
-    color: var(--cor-secundaria);
+  @media (min-width: 700px){
+    .substituicao-fluxo{ flex-direction: row; justify-content: center; gap: 1rem; }
   }
+  .substituicao-passo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .35rem;
+    padding: .9rem 1.4rem;
+    border-radius: var(--raio-md);
+    background: var(--cor-superficie);
+    min-width: 170px;
+    text-align: center;
+  }
+  .substituicao-passo-destaque{ background: var(--cor-secundaria); }
+  .substituicao-passo-destaque .substituicao-label,
+  .substituicao-passo-destaque .substituicao-valor{ color: var(--cor-branco); }
+  .substituicao-label{
+    font-family: var(--fonte-mono);
+    font-size: .68rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    opacity: .65;
+  }
+  .substituicao-valor{ font-weight: 600; font-size: 1rem; }
+  .substituicao-seta{ font-size: 1.3rem; color: var(--cor-secundaria); transform: rotate(90deg); }
+  @media (min-width: 700px){ .substituicao-seta{ transform: none; } }
 
   /* ============================================
      PROVA SOCIAL — prints de depoimentos
@@ -513,21 +575,18 @@
   @media (min-width:900px){ .oferta-grid{ grid-template-columns:1.2fr 0.8fr; } }
   .oferta-list{ display:flex; flex-direction:column; gap:.5rem; }
   .oferta-list li{ display:flex; align-items:flex-start; gap:.75rem; padding:.65rem 0; font-size:1rem; border-bottom:none; }
-  .oferta-check{ flex-shrink:0; width:22px; height:22px; border-radius:6px; background:var(--cor-secundaria); color:var(--cor-branco); display:flex; align-items:center; justify-content:center; font-size:.75rem; margin-top:.1rem; }
-  .price-card{ background:var(--cor-branco); border:2px solid var(--cor-primaria); border-radius:20px; box-shadow:0 8px 30px rgba(26,24,20,.08); padding:2.25rem 1.75rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:.85rem; }
+  .price-card{ background:var(--cor-branco); border:1.5px solid var(--cor-primaria); border-radius:20px; box-shadow:0 8px 30px rgba(26,24,20,.08); padding:2.25rem 1.75rem; text-align:center; display:flex; flex-direction:column; align-items:center; gap:.85rem; }
   .price-new{ font-family:var(--fonte-titulo); font-weight:800; font-size:clamp(3rem,9vw,4rem); color:var(--cor-destaque); line-height:1; }
-  .price-condicao{ font-family:var(--fonte-corpo); font-size:.85rem; color:#6b675f; }
-  .price-ancora-pill{ background:#e4ecda; color:#2D4A23; font-size:.85rem; font-weight:600; padding:.4rem 1rem; border-radius:20px; }
+  .price-condicao{ font-family:var(--fonte-corpo); font-size:.9rem; color:#6b675f; max-width: 32ch; }
   .price-trust{ display:flex; flex-direction:column; gap:.4rem; font-size:.82rem; color:#6b675f; margin-top:.25rem; }
 
   /* ============================================
      GARANTIA
      ============================================ */
   .garantia-inner{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:1rem; max-width:600px; margin:0 auto; }
-  .garantia-icon{ color:#fff; }
 
   /* ============================================
-     HUMANIZAÇÃO
+     QUEM É A LÍVIA
      ============================================ */
   .humanizacao{ background: var(--cor-branco); }
   .humanizacao-inner{
@@ -641,7 +700,6 @@
     opacity: .45;
     padding: 2.5rem 1rem;
   }
-  .demo-cta-row{ display: flex; flex-direction: column; align-items: center; gap: .85rem; margin-top: 2.25rem; }
 
   /* ============================================
      FAQ
@@ -686,9 +744,8 @@
   /* ============================================
      CTA FINAL
      ============================================ */
-  .cta-final{ background: var(--cor-secundaria); color: var(--cor-branco); text-align: center; }
-  .cta-final .titulo-lg{ color: var(--cor-branco); }
-  .cta-final .price-condicao{ color: var(--cor-branco); opacity: .8; }
+  .cta-final{ background: var(--cor-texto); color: var(--cor-branco); text-align: center; }
+  .cta-final .titulo-lg{ color: var(--cor-branco); max-width: 680px; margin-inline: auto; }
   .cta-final .price-new{ color: var(--cor-primaria); }
   .cta-final-inner{ display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
   .cta-final .trust-row{ color: var(--cor-branco); opacity: .75; }
@@ -696,7 +753,10 @@
   /* ---------- Rodapé ---------- */
   .rodape{ text-align: center; padding-block: 2.5rem; font-family: var(--fonte-mono); font-size: .75rem; opacity: .5; }
 
-  .urgency-bar{
+  /* ============================================
+     BARRA STICKY
+     ============================================ */
+  .sticky-bar{
     position:sticky; top:0; z-index:1000;
     background:#2D4A23;
     color:#fff;
@@ -704,12 +764,12 @@
     font-family:var(--fonte-corpo);
     padding:10px 16px;
   }
-  .urgency-inner{
+  .sticky-inner{
     max-width:1080px; margin:0 auto;
     display:flex; align-items:center; justify-content:center;
     gap:14px; flex-wrap:wrap; text-align:center;
   }
-  .urgency-cta{
+  .sticky-cta{
     background:rgba(255,255,255,.15);
     color:#fff;
     padding:5px 14px; border-radius:20px;
@@ -717,17 +777,20 @@
     white-space:nowrap;
     transition:background .2s ease;
   }
-  .urgency-cta:hover{ background:rgba(255,255,255,.28); }
+  .sticky-cta:hover{ background:rgba(255,255,255,.28); }
 </style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5RKB279X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1017904621080700&amp;ev=PageView&amp;noscript=1" alt=""></noscript>
 
-<div class="urgency-bar">
-  <div class="urgency-inner">
-    <span>⏱ Preço de lançamento: R$29,90 pagamento único · Acesso imediato</span>
-    <a href="https://pay.kiwify.com.br/BvlfZuj" class="urgency-cta js-checkout-cta">Garantir agora →</a>
+<!-- ============================================
+     1. BARRA STICKY
+     ============================================ -->
+<div class="sticky-bar">
+  <div class="sticky-inner">
+    <span>Biblioteca Proteica · R$29,90 pagamento único · Acesso imediato</span>
+    <a href="https://pay.kiwify.com.br/BvlfZuj" class="sticky-cta js-checkout-cta" data-position="sticky">Quero acessar →</a>
   </div>
 </div>
 
@@ -736,7 +799,7 @@
 <main id="conteudo">
 
   <!-- ============================================
-       1. HERO — dor + desejo + preço + CTA
+       2. HERO — comida + mecanismo + preço + CTA
        ============================================ -->
   <section class="hero">
     <div class="container hero-inner">
@@ -746,14 +809,22 @@
         </div>
       </div>
       <div class="hero-content">
-        <h1 class="titulo-xl hero-title">Você sabe que deveria comer mais proteína. O problema é que você trava toda hora no "e agora, o que eu faço?"</h1>
-        <p class="texto-lead hero-sub">A Biblioteca Proteica da Lívia resolve isso: mais de 50 receitas gostosas, buscáveis por ingrediente, disponíveis na hora que você precisa. R$29,90. Uma vez. Pra sempre.</p>
+        <span class="kicker">Mais de 50 receitas proteicas</span>
+        <h1 class="titulo-xl hero-title">Abriu a geladeira e não sabe o que fazer?</h1>
+        <p class="hero-reveal">Digite o que você tem. A Biblioteca mostra as receitas.</p>
+        <p class="texto-lead hero-sub">Mais de 50 receitas proteicas, doces e salgadas, com busca por ingrediente, substituições e acesso imediato.</p>
         <div class="hero-cta-group">
-          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero parar de travar na frente da geladeira →</a>
+          <div class="price-inline hero-price-row">
+            <span class="new">R$29,90</span>
+            <span class="valor-ancora">— pagamento único</span>
+          </div>
+          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj" data-position="hero">Quero acessar a Biblioteca →</a>
           <div class="trust-row">
             <span>Acesso imediato</span>
             <span>·</span>
-            <span>Garantia de 7 dias</span>
+            <span>Pagamento único</span>
+            <span>·</span>
+            <span>7 dias de garantia</span>
             <span>·</span>
             <span>Sem assinatura</span>
           </div>
@@ -763,7 +834,7 @@
   </section>
 
   <!-- ============================================
-       2. AGITAÇÃO EMOCIONAL
+       3. IDENTIFICAÇÃO COM A DOR
        ============================================ -->
   <section class="section agitacao">
     <div class="container">
@@ -772,43 +843,43 @@
       </div>
       <div class="pain-grid">
         <div class="pain-card">
-          <span class="pain-icon">🥱</span>
-          <p>Toda semana o mesmo frango grelhado porque não sabe mais o que inventar</p>
+          <span class="pain-icon">🧊</span>
+          <p>Tem ingredientes em casa, mas não sabe o que preparar</p>
+        </div>
+        <div class="pain-card">
+          <span class="pain-icon">🔁</span>
+          <p>Acaba repetindo sempre as mesmas receitas</p>
         </div>
         <div class="pain-card">
           <span class="pain-icon">📱</span>
-          <p>Já baixou 4 apps de receita e não usa nenhum</p>
+          <p>Fica garimpando receita no Instagram, TikTok e Pinterest</p>
         </div>
         <div class="pain-card">
           <span class="pain-icon">🛒</span>
-          <p>Compra ingredientes saudáveis e eles apodrecem na geladeira</p>
+          <p>Compra ingredientes e não sabe como combinar</p>
         </div>
         <div class="pain-card">
-          <span class="pain-icon">😩</span>
-          <p>No fim do dia exausta, pede delivery e sente culpa depois</p>
-        </div>
-        <div class="pain-card">
-          <span class="pain-icon">🔍</span>
-          <p>Passa 20 minutos tentando achar uma receita proteica que preste</p>
+          <span class="pain-icon">😮‍💨</span>
+          <p>Quer comer algo gostoso sem transformar em "comida fit triste"</p>
         </div>
       </div>
-      <p class="pain-quote">"Não é falta de força de vontade. É falta de um sistema que funcione quando você precisa."</p>
+      <p class="pain-quote">O problema não é falta de receita. É ter a receita certa quando você precisa.</p>
     </div>
   </section>
 
   <!-- ============================================
-       3. SOLUÇÃO — mockup estático (sem JS)
+       4. MECANISMO — "digite o que tem" (mockup estático)
        ============================================ -->
-  <section class="section solucao">
+  <section class="section mecanismo">
     <div class="container">
       <div class="section-head">
         <span class="kicker">Chega de adivinhar</span>
-        <h2 class="titulo-lg">Abriu. Escolheu. Cozinhou.</h2>
-        <p class="texto-lead">A Biblioteca Proteica da Lívia não é mais um arquivo perdido no celular. É uma busca de verdade: você digita o que tem em casa, a receita aparece. Falta um ingrediente? Tem substituição pronta. Quer planejar a semana? O cardápio monta sozinho. Tudo no celular, sem baixar nada.</p>
+        <h2 class="titulo-lg">Você diz o que tem. A Biblioteca faz o resto.</h2>
+        <p class="texto-lead">Tem frango? Digite frango. Tem banana sobrando? Digite banana. Em vez de ficar caçando receita pela internet, você começa pelo que já tem em casa.</p>
       </div>
 
-      <div class="solucao-grid">
-        <div class="solucao-media">
+      <div class="mecanismo-grid">
+        <div class="mecanismo-media">
           <img src="/RECEITAS/LANCHE-E-SOBREMESA/BROWNIE-PROTEICO/BROWNIE-PROTEICO.webp" alt="Brownie proteico" loading="lazy" decoding="async">
         </div>
         <div class="mockup-frame" aria-hidden="true">
@@ -842,87 +913,23 @@
         </div>
       </div>
 
-      <div class="solucao-cta-row">
-        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero acesso imediato</a>
+      <p class="mecanismo-nota">Isso é uma busca de verdade — não um PDF pra rolar até achar.</p>
+
+      <div class="mecanismo-cta-row">
+        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj" data-position="mechanism">Quero acesso imediato</a>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       3.5. PROVA SOCIAL — prints de depoimentos reais
-       ============================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <span class="kicker">Quem já está usando</span>
-        <h2 class="titulo-lg">A reação de quem abriu pela primeira vez.</h2>
-      </div>
-      <div class="prova-grid">
-        <div class="prova-item prova-item-ig"><img src="/prova-social/IG1 — Juliana Mendes.webp" alt="Comentário Juliana" loading="lazy" decoding="async"></div>
-        <div class="prova-item prova-item-ig"><img src="/prova-social/IG2 — Carolina Alves.webp" alt="Comentário Carolina" loading="lazy" decoding="async"></div>
-        <div class="prova-item prova-item-wa"><img src="/prova-social/WA1 — Thaís.webp" alt="Depoimento Thaís" loading="lazy" decoding="async"></div>
-        <div class="prova-item prova-item-wa"><img src="/prova-social/WA2 — Rafa.webp" alt="Depoimento Rafa" loading="lazy" decoding="async"></div>
-        <div class="prova-item prova-item-wa"><img src="/prova-social/WA3 — Bruna.webp" alt="Depoimento Bruna" loading="lazy" decoding="async"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       6. OFERTA — o que você leva + preço
-       ============================================ -->
-  <section class="section bg-superficie">
-    <div class="container">
-      <div class="section-head" style="align-items:flex-start;text-align:left;">
-        <h2 class="titulo-lg" style="text-align:left;">O que está dentro por R$29,90</h2>
-      </div>
-      <div class="oferta-grid">
-        <ul class="oferta-list">
-          <li><span class="oferta-check">✓</span><span>Mais de 50 receitas proteicas testadas, com atualizações mensais — doces, salgadas, rápidas e de marmita</span></li>
-          <li><span class="oferta-check">✓</span><span>Busca inteligente por ingrediente: digite o que você tem, a receita aparece</span></li>
-          <li><span class="oferta-check">✓</span><span>Substituições prontas pra cada receita (sem lactose, sem glúten, o que tiver na geladeira)</span></li>
-          <li><span class="oferta-check">✓</span><span>Cardápio semanal pronto, sem precisar pensar</span></li>
-          <li><span class="oferta-check">✓</span><span>Lista de compras automática por categoria</span></li>
-          <li><span class="oferta-check">✓</span><span>Acesso vitalício, direto do navegador — sem app pra baixar</span></li>
-          <li><span class="oferta-check">✓</span><span>Atualizações futuras inclusas, sem custo extra</span></li>
-        </ul>
-        <div class="price-card">
-          <span class="price-new">R$29,90</span>
-          <span class="price-condicao">Pagamento único · Sem mensalidade</span>
-          <span class="price-ancora-pill">Menos que uma consulta com nutricionista</span>
-          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj" style="width:100%;margin-top:.5rem;">Garantir meu acesso agora →</a>
-          <div class="price-trust">
-            <span>🔒 Checkout seguro</span>
-            <span>🛡️ 7 dias de garantia</span>
-            <span>⚡ Acesso imediato</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
-       6.5. GARANTIA
-       ============================================ -->
-  <section class="section" style="background:#2D4A23;">
-    <div class="container garantia-inner">
-      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true">
-        <path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z" stroke-linejoin="round"></path>
-        <path d="M8.5 12.5l2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round"></path>
-      </svg>
-      <h3 class="titulo-lg" style="color:#fff;">Risco zero. Só seu.</h3>
-      <p class="texto-lead" style="color:#e7ecdf; max-width:520px;">Acesse a Biblioteca, use as receitas, explore a busca. Se em 7 dias você achar que não valeu — por qualquer motivo — é só pedir reembolso. Sem perguntas, sem burocracia. O risco é 100% nosso.</p>
-    </div>
-  </section>
-
-  <!-- ============================================
-       7. DEMO INTERATIVA — busca + geladeira
+       5. DEMO INTERATIVA — busca + geladeira
        (JS só inicializa quando a seção entra na viewport)
        ============================================ -->
   <section class="section" id="demo">
     <div class="container">
       <div class="section-head">
         <span class="kicker">Teste você mesma</span>
-        <h2 class="titulo-lg">Não acredita? Testa aqui embaixo.</h2>
+        <h2 class="titulo-lg">Teste uma versão da busca agora.</h2>
         <p class="texto-lead">Escolha o que você tem na geladeira ou digite — isto é uma versão simplificada da busca que vem dentro da biblioteca completa, com mais de 50 receitas.</p>
       </div>
 
@@ -943,59 +950,230 @@
           <p class="demo-loading">Toque em um ingrediente ou role até aqui pra carregar a busca.</p>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="demo-cta-row">
-        <p class="texto-lead">Gostou do que viu? Isso é só uma prova. Lá dentro são mais de 50, com atualizações mensais.</p>
-        <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Quero as receitas completas</a>
+  <!-- ============================================
+       6. GALERIA DE RECEITAS
+       ============================================ -->
+  <section class="section bg-superficie">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="titulo-lg">Proteica sim. Com cara de dieta, não.</h2>
+      </div>
+      <div class="galeria-grid">
+        <div class="galeria-item">
+          <div class="galeria-img"><img src="/RECEITAS/LANCHE-E-SOBREMESA/BROWNIE-PROTEICO/BROWNIE-PROTEICO.webp" alt="Brownie proteico" loading="lazy" decoding="async"></div>
+          <span class="galeria-caption">Brownie Proteico</span>
+        </div>
+        <div class="galeria-item">
+          <div class="galeria-img"><img src="/RECEITAS/ALMOCO-E-JANTA/KEBAB-DE-FRANGO/KEBAB-DE-FRANGO.webp" alt="Kebab de frango" loading="lazy" decoding="async"></div>
+          <span class="galeria-caption">Kebab de Frango</span>
+        </div>
+        <div class="galeria-item">
+          <div class="galeria-img"><img src="/RECEITAS/ALMOCO-E-JANTA/TORTA-DE-FRANGO-E-TAPIOCA/TORTA-DE-FRANGO-E-TAPIOCA.webp" alt="Torta de frango e tapioca" loading="lazy" decoding="async"></div>
+          <span class="galeria-caption">Torta de Frango e Tapioca</span>
+        </div>
+        <div class="galeria-item">
+          <div class="galeria-img"><img src="/RECEITAS/LANCHE-E-SOBREMESA/BRIGADEIRO-FIT-DE-CAFE/BRIGADEIRO-FIT-DE-CAFE.webp" alt="Brigadeiro proteico de café" loading="lazy" decoding="async"></div>
+          <span class="galeria-caption">Brigadeiro Proteico de Café</span>
+        </div>
+        <div class="galeria-item">
+          <div class="galeria-img"><img src="/RECEITAS/CAFE-DA-MANHA/CREPIOCA-DE-BANOFFEE/CREPIOCA-DE-BANOFFEE.webp" alt="Crepioca de banoffee" loading="lazy" decoding="async"></div>
+          <span class="galeria-caption">Crepioca de Banoffee</span>
+        </div>
+        <div class="galeria-item">
+          <div class="galeria-img"><img src="/RECEITAS/LANCHE-E-SOBREMESA/PANQUECA-BOMBOM-DE-MORANGO/PANQUECA-BOMBOM-DE-MORANGO.webp" alt="Panqueca bombom de morango" loading="lazy" decoding="async"></div>
+          <span class="galeria-caption">Panqueca Bombom de Morango</span>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================
-       8. FAQ + CTA FINAL
+       7. FUNCIONALIDADES / BENEFÍCIOS
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="titulo-lg">O que existe dentro da Biblioteca</h2>
+      </div>
+      <div class="beneficios-grid">
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Mais de 50 receitas proteicas</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Busca por ingrediente</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Sugestões de substituição</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Receitas doces e salgadas</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Cardápio semanal</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Lista de compras</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Acesso vitalício</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Atualizações mensais sem custo extra</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Uso direto no navegador</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Sem aplicativo obrigatório</span></div>
+        <div class="beneficio-item"><span class="check-badge">✓</span><span>Sem mensalidade</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       8. SUBSTITUIÇÕES
        ============================================ -->
   <section class="section bg-superficie">
     <div class="container">
       <div class="section-head">
-        <span class="kicker">Perguntas frequentes</span>
-        <h2 class="titulo-lg">Ainda com dúvida?</h2>
+        <h2 class="titulo-lg">Faltou um ingrediente? Tem substituto.</h2>
+        <p class="texto-lead">Cada receita vem com opções de substituição para quando a geladeira não está completa.</p>
+      </div>
+      <div class="substituicao-card">
+        <div class="substituicao-fluxo">
+          <div class="substituicao-passo">
+            <span class="substituicao-label">Receita pede</span>
+            <span class="substituicao-valor">Iogurte grego</span>
+          </div>
+          <span class="substituicao-seta">→</span>
+          <div class="substituicao-passo">
+            <span class="substituicao-label">Você tem</span>
+            <span class="substituicao-valor">Iogurte natural</span>
+          </div>
+          <span class="substituicao-seta">→</span>
+          <div class="substituicao-passo substituicao-passo-destaque">
+            <span class="substituicao-label">A Biblioteca sugere</span>
+            <span class="substituicao-valor">Substituição pronta</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       9. PROVA SOCIAL — prints de depoimentos reais
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="titulo-lg">Quem entrou já entendeu a diferença.</h2>
+      </div>
+      <div class="prova-grid">
+        <div class="prova-item prova-item-ig"><img src="/prova-social/IG1 — Juliana Mendes.webp" alt="Comentário Juliana" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-ig"><img src="/prova-social/IG2 — Carolina Alves.webp" alt="Comentário Carolina" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-wa"><img src="/prova-social/WA1 — Thaís.webp" alt="Depoimento Thaís" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-wa"><img src="/prova-social/WA2 — Rafa.webp" alt="Depoimento Rafa" loading="lazy" decoding="async"></div>
+        <div class="prova-item prova-item-wa"><img src="/prova-social/WA3 — Bruna.webp" alt="Depoimento Bruna" loading="lazy" decoding="async"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       10. OFERTA — o que você leva + preço
+       ============================================ -->
+  <section class="section bg-superficie">
+    <div class="container">
+      <div class="section-head" style="align-items:flex-start;text-align:left;">
+        <h2 class="titulo-lg" style="text-align:left;">Tudo isso por R$29,90.</h2>
+      </div>
+      <div class="oferta-grid">
+        <ul class="oferta-list">
+          <li><span class="check-badge">✓</span><span>Mais de 50 receitas proteicas testadas, com atualizações mensais — doces, salgadas, rápidas e de marmita</span></li>
+          <li><span class="check-badge">✓</span><span>Busca inteligente por ingrediente: digite o que você tem, a receita aparece</span></li>
+          <li><span class="check-badge">✓</span><span>Substituições prontas pra cada receita (sem lactose, sem glúten, o que tiver na geladeira)</span></li>
+          <li><span class="check-badge">✓</span><span>Cardápio semanal pronto, sem precisar pensar</span></li>
+          <li><span class="check-badge">✓</span><span>Lista de compras automática por categoria</span></li>
+          <li><span class="check-badge">✓</span><span>Acesso vitalício, direto do navegador — sem app pra baixar</span></li>
+          <li><span class="check-badge">✓</span><span>Atualizações futuras inclusas, sem custo extra</span></li>
+        </ul>
+        <div class="price-card">
+          <span class="price-new">R$29,90</span>
+          <span class="price-condicao">Pagamento único. Sem mensalidade. Acesso vitalício.</span>
+          <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj" data-position="offer" style="width:100%;margin-top:.5rem;">Quero meu acesso agora →</a>
+          <div class="price-trust">
+            <span>🔒 Checkout seguro</span>
+            <span>🛡️ 7 dias de garantia</span>
+            <span>⚡ Acesso imediato</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       11. GARANTIA
+       ============================================ -->
+  <section class="section" style="background:#2D4A23;">
+    <div class="container garantia-inner">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" aria-hidden="true">
+        <path d="M12 2l8 3v6c0 5-3.5 9-8 11-4.5-2-8-6-8-11V5l8-3z" stroke-linejoin="round"></path>
+        <path d="M8.5 12.5l2.5 2.5 4.5-5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <h3 class="titulo-lg" style="color:#fff;">Você tem 7 dias para testar com calma.</h3>
+      <p class="texto-lead" style="color:#e7ecdf; max-width:520px;">Acesse, explore as receitas e teste a busca. Se perceber que não faz sentido para você, solicite o reembolso dentro do prazo.</p>
+    </div>
+  </section>
+
+  <!-- ============================================
+       12. QUEM É A LÍVIA
+       ============================================ -->
+  <section class="section humanizacao">
+    <div class="container humanizacao-inner">
+      <div class="humanizacao-foto">
+        <img src="/RECEITAS/Perfil-Livia.webp" alt="Lívia Valença" loading="lazy" decoding="async">
+      </div>
+      <div>
+        <h3 class="titulo-md">Lívia Valença</h3>
+        <p class="texto-lead">Criei a Biblioteca porque queria comer bem sem complicar. Testei cada receita. Nenhuma tem cara de castigo — porque se não estiver gostoso, não adianta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       13. FAQ
+       ============================================ -->
+  <section class="section bg-superficie">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="titulo-lg">Perguntas frequentes</h2>
       </div>
       <div class="faq-list">
         <details class="faq-item">
-          <summary>Como eu recebo o acesso?<span class="faq-icon">+</span></summary>
+          <summary>Como recebo o acesso?<span class="faq-icon">+</span></summary>
           <p class="faq-answer">Assim que o pagamento é aprovado, você recebe o link de acesso por e-mail (vale checar a caixa de spam) e já pode abrir a biblioteca direto no navegador do celular ou do computador.</p>
         </details>
         <details class="faq-item">
-          <summary>Preciso baixar algum aplicativo?<span class="faq-icon">+</span></summary>
+          <summary>Preciso baixar um aplicativo?<span class="faq-icon">+</span></summary>
           <p class="faq-answer">Não. É tudo direto no navegador, funciona como um site — só que com busca de receita de verdade, sem precisar instalar nada.</p>
-        </details>
-        <details class="faq-item">
-          <summary>Tem garantia?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Sim, 7 dias. Se a Biblioteca Proteica não for pra você, é só pedir reembolso, sem burocracia.</p>
-        </details>
-        <details class="faq-item">
-          <summary>As receitas servem pra quem tem restrição alimentar?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Boa parte das receitas tem substituições indicadas (sem lactose, sem glúten, entre outras), mas vale sempre confirmar os ingredientes com seu nutricionista antes.</p>
         </details>
         <details class="faq-item">
           <summary>É assinatura?<span class="faq-icon">+</span></summary>
           <p class="faq-answer">Não. Pagamento único de R$29,90, acesso vitalício, sem mensalidade e sem cobrança recorrente.</p>
         </details>
         <details class="faq-item">
-          <summary>Funciona pra quem está começando agora?<span class="faq-icon">+</span></summary>
-          <p class="faq-answer">Sim. As receitas têm passo a passo simples e ingredientes fáceis de achar em qualquer mercado.</p>
+          <summary>Tem garantia?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Sim, 7 dias. Se a Biblioteca Proteica não for pra você, é só pedir reembolso, sem burocracia.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Posso usar pelo celular?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Sim. A Biblioteca funciona direto no navegador do celular, tablet ou computador, sem precisar instalar nada.</p>
+        </details>
+        <details class="faq-item">
+          <summary>As receitas têm substituições?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Boa parte das receitas tem substituições indicadas (sem lactose, sem glúten, entre outras), mas vale sempre confirmar os ingredientes com seu nutricionista antes.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Recebo novas receitas?<span class="faq-icon">+</span></summary>
+          <p class="faq-answer">Sim. A Biblioteca recebe atualizações mensais com novas receitas, sem nenhum custo extra pra quem já tem acesso.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background:var(--cor-texto); text-align:center;">
-    <div class="container cta-final-inner" style="display:flex; flex-direction:column; align-items:center; gap:1.25rem;">
-      <h2 class="titulo-lg" style="color:#fff; max-width:680px;">Sua próxima refeição já pode ser diferente.</h2>
-      <p class="texto-lead" style="color:#d8d3c7;">50+ receitas proteicas. Busca por ingrediente. R$29,90 pra sempre.</p>
-      <span class="price-new" style="color:var(--cor-primaria);">R$29,90</span>
-      <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj">Começar agora — R$29,90 →</a>
-      <div class="trust-row" style="color:#fff; opacity:.75;">
+  <!-- ============================================
+       14. CTA FINAL
+       ============================================ -->
+  <section class="section cta-final">
+    <div class="container cta-final-inner">
+      <h2 class="titulo-lg">Da próxima vez que abrir a geladeira sem ideia do que fazer, a resposta já vai estar no seu celular.</h2>
+      <p class="texto-lead" style="color:#d8d3c7;">50+ receitas · busca por ingrediente · atualizações mensais</p>
+      <span class="price-new">R$29,90</span>
+      <a class="btn btn-primary js-checkout-cta" href="https://pay.kiwify.com.br/BvlfZuj" data-position="final">Quero meu acesso agora →</a>
+      <div class="trust-row">
         <span>⚡ Acesso imediato</span>
         <span>·</span>
         <span>🛡️ Garantia de 7 dias</span>
@@ -1015,23 +1193,27 @@
 (function(){
   'use strict';
 
-  /* ---- Analytics: GTM + Meta Pixel, só depois do load ---- */
+  /* ---- Meta Pixel: script assíncrono, independente do window.load ---- */
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
+    s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1017904621080700');
+  fbq('track','PageView');
+
+  /* ---- GTM: mantém o carregamento atual, depois do load ---- */
   window.addEventListener('load', function(){
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
       var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
       j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-5RKB279X');
-
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;
-      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init','1017904621080700');
-    fbq('track','PageView');
   });
 
-  /* ---- Clique nos CTAs de compra ---- */
+  /* ---- Clique nos CTAs de compra: evento customizado por posição (sem InitiateCheckout) ---- */
   document.addEventListener('click', function(e){
-    if(e.target.closest('.js-checkout-cta') && window.fbq){ fbq('track','InitiateCheckout'); }
+    var cta = e.target.closest('.js-checkout-cta');
+    if(cta && window.fbq){
+      fbq('trackCustom', 'checkout_cta_click', { position: cta.getAttribute('data-position') || 'unknown' });
+    }
   });
 
   /* ---- Demo interativa: inicializa só quando a seção entra na viewport ---- */
